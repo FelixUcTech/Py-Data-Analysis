@@ -1,4 +1,4 @@
-# Notas y Proyectos Educativos
+# Notas y Ejemplos
 
 Este repositorio está diseñado para quienes están iniciando en el desarrollo de habilidades relacionadas con la manipulación y visualización de datos utilizando Python de manera profesional. Su objetivo principal es ayudar a desarrollar competencias en el ámbito de Data Science and IA.
 
