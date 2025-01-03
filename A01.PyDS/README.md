@@ -358,6 +358,8 @@ print("Desviación estándar de los datos simulados:", desviacion_simulada)
 
 ## Pandas [(Menú)](#python-para-ciencia-de-datos)
 
+https://pandas.pydata.org/docs/user_guide/
+
 Pandas está construido sobre NumPy, facilitando la manipulación y el análisis de datos, es ideal para trabajar con datos tabulares como los qué se encuentran en hojas de cálculos, o bases de datos relacionales. Una excelente bibliográfica qué me ayudo mucho en la universidad pero si aún no has llegado ahí puedes abordarla con simples **buenas bases de aritmetica y algebra** es **Álgebra líneal una introducción moderna por David Poole de la editorial CENGAGE Learning**.
 
 Relacionado a esto:
@@ -445,8 +447,11 @@ print("\nDataFrame copia:")
 print(consulta_copia)
 ```
 ### Datos Faltantes
-¿Cómo identificar los datos faltantes?
--+
+**¿Cómo identificar los datos faltantes?**
+
+https://pandas.pydata.org/docs/user_guide/missing_data.html
+
+
 
 
 
