@@ -446,6 +446,10 @@ print(consulta_copia)
 ```
 ### Datos Faltantes
 ¿Cómo identificar los datos faltantes?
+-+
+
+
+
 
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
 
