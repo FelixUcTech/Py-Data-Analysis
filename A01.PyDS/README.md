@@ -42,6 +42,7 @@ import pandas as pd
 ```
 
 ## NumPy [(Menú)](#python-para-ciencia-de-datos)
+### Intro
 NumPy nos permite realizar operaciones matemáticas y estadísitcas de alto rendimiento
 ### Algunas funcionalidades de numpy [(Menú)](#python-para-ciencia-de-datos)
 
@@ -357,7 +358,7 @@ print("Desviación estándar de los datos simulados:", desviacion_simulada)
 ```
 
 ## Pandas [(Menú)](#python-para-ciencia-de-datos)
-
+### intro
 https://pandas.pydata.org/docs/user_guide/
 
 Pandas está construido sobre NumPy, facilitando la manipulación y el análisis de datos, es ideal para trabajar con datos tabulares como los qué se encuentran en hojas de cálculos, o bases de datos relacionales. Una excelente bibliográfica qué me ayudo mucho en la universidad pero si aún no has llegado ahí puedes abordarla con simples **buenas bases de aritmetica y algebra** es **Álgebra líneal una introducción moderna por David Poole de la editorial CENGAGE Learning**.
@@ -451,9 +452,51 @@ print(consulta_copia)
 
 https://pandas.pydata.org/docs/user_guide/missing_data.html
 
+Se utilizan unas funciones para determinar los datos faltantes por columna, esto con los siguientes 2 métodos.
 
+```py
+import pandas as pd
+df = pd.read_csv('/bangladesh_divisions_dataset.csv')
+datos_faltantes =  df.isna().sum()
+print("Datos faltantes por columna\n", datos_faltantes)
+```
 
+.isna() determina los favoles faltantes mediente la escritura de True en la casilla donde haya falta, y con sum(), por columna hace el conteo de los trues, que se hayan encontrado en el dataframe. **Cuando faltan datos, hay dos opciones eliminar la las filas o columnas correspondientes a los datos faltantes o agregar la información faltante**, es importante hacer esto aunque sea obvio porque implicar grandes cambios en el desarollo de nuestro análisis.
 
+Caso uno 1.1 eliminar filas donde haya datos faltantes, con la función **.dropna()**. Para este primer caso perdemos algunas filas y pero mantenemos las columnas.
+```py
+import pandas as pd
+
+DatosLimpios = df.dropna()
+# Puede escribirse dropna(axis = 0), es equivalente a no poner nada.
+print("Sin filas con valores faltantes\n", DatosLimpios)
+```
+
+Caso dos 1.2 Ahora eliminar las columnas donde haya datos faltantes esto no es recomendable si no es esctrictamente necesario porque puede ser más factible hacer el analisis si solo falta un dato a qué se elimine toda la info, aliminamos las columnas donde hubieran datos faltantes pero mantenemos el total de filas.
+
+```py
+import pandas as pd
+
+DatosLimpios = df.dropna(axis=1)
+print("Sin columnas con valores faltantes\n", DatosLimpios)
+```
+
+2.1 Rellenar donde haya datos faltantes
+
+```py
+tabla_rellenada = df.fillna("Datos no disponible")
+
+print("Rellenado con 'Datos no disponible'\n", tabla_rellenada)
+
+# Filtrar filas que contienen 'Datos no disponible' en cualquier columna
+filas_con_datos_no_disponible = tabla_rellenada[
+    tabla_rellenada.isin(["Datos no disponible"]).any(axis=1)
+]
+
+print("Filas con 'Datos no disponible':\n", filas_con_datos_no_disponible)
+```
+Si volvemos apreguntar si hay datos no dispoibles pero a tabla_rellenada, encontraremos que no hay valores vacios.
+### Creación y Manipulación de Columnas en Padaas
 
 
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
