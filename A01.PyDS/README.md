@@ -496,7 +496,104 @@ filas_con_datos_no_disponible = tabla_rellenada[
 print("Filas con 'Datos no disponible':\n", filas_con_datos_no_disponible)
 ```
 Si volvemos apreguntar si hay datos no dispoibles pero a tabla_rellenada, encontraremos que no hay valores vacios.
-### Creación y Manipulación de Columnas en Padaas
+### Creación y Manipulación de Columnas en Pandas
+
+**Creación de una columan nueva en función de operaciones aritmeticas**
+```py 
+import pandas as pd
+
+df_walmart = pd.read_csv("/Walmart_Sales.csv")
+
+df_walmart['Multiplicacion'] = ((df_walmart['Fuel_Price'])/(df_walmart['CPI']))
+
+print(df_walmart)
+```
+**Nueva columna basada en condicionales**
+
+```py 
+import pandas as pd
+
+df_walmart = pd.read_csv("/Walmart_Sales.csv")
+
+df_walmart['Multiplicacion'] = ((df_walmart['Fuel_Price'])/(df_walmart['CPI']))
+
+df_walmart['Mayor a la media'] = ((df_walmart['Multiplicacion'])>(df_walmart['Multiplicacion'].mean()))
+
+print(df_walmart)
+```
+
+**Cambiar el tipo de variable de una columna**
+```py 
+import pandas as pd
+
+df_walmart = pd.read_csv("/Walmart_Sales.csv")
+
+print(df_walmart.info())
+
+df_walmart['Date'] = pd.to_datetime(df_walmart['Date'], format='%d-%m-%Y')
+
+print(df_walmart.info())
+```
+
+**Aplicar una función labdam en la columan**
+```py
+import pandas as pd
+
+df_walmart = pd.read_csv("/Walmart_Sales.csv")
+
+# Convertir la columna 'Date' al formato datetime
+df_walmart['Date'] = pd.to_datetime(df_walmart['Date'], format='%d-%m-%Y')
+
+# Crear nuevas columnas para el año y mes utilizando lambda
+df_walmart['Year'] = df_walmart['Date'].apply(lambda x: x.year)
+df_walmart['Month'] = df_walmart['Date'].apply(lambda x: x.month)
+
+# Mostrar las primeras filas con las nuevas columnas
+print(df_walmart[['Date', 'Year', 'Month']].head())
+```
+**Transformaciones con datos categóricos**
+
+```py
+import pandas as pd
+
+# Crear un DataFrame de ejemplo
+df = pd.read_csv("/Walmart_Sales.csv")
+
+# Definir la función para categorizar
+def categorize_column(df, column_name, new_column_name='Category'):
+    """
+    Categoriza los valores de una columna en 10 divisiones simétricas basadas en su rango.
+    
+    Args:
+        df (pd.DataFrame): El DataFrame que contiene la columna a categorizar.
+        column_name (str): El nombre de la columna a categorizar.
+        new_column_name (str): El nombre de la nueva columna con las categorías.
+        
+    Returns:
+        pd.DataFrame: El DataFrame original con una nueva columna de categorías.
+    """
+    min_value = df[column_name].min()
+    max_value = df[column_name].max()
+    interval_size = (max_value - min_value) / 10
+    
+    # Función lambda para asignar categorías
+    def categorize_value(value):
+        for i in range(10):
+            if value <= min_value + (i + 1) * interval_size:
+                return f"Category {i + 1}"
+        return f"Category 10"  # Para el último intervalo
+    
+    # Crear una nueva columna con las categorías
+    df[new_column_name] = df[column_name].apply(categorize_value)
+    return df
+
+# Aplicar la función a una columna específica
+df = categorize_column(df, 'Temperature', new_column_name='Category_Temperature')
+
+# Mostrar el DataFrame resultante
+print(df)
+```
+
 
 
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
