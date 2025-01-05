@@ -3,7 +3,16 @@
     - [Algunas funcionalidades de numpy](#algunas-funcionalidades-de-numpy-menú)
     - [Algebra líneal](#algebra-líneal-menú)
     - [Indexación y Slicing](#indexación-y-slicing-menú)
+    - [Broadcasting](#broadcasting-menú)
+    - [Copias y vistas](#copias-y-vistas-menú)
+    - [Darle reshaped y transpuesta](#darle-reshaped-y-transpuesta-menú)
+    - [Resumen de código](#resumen-de-código-menú)
 - [Pandas](#pandas-menú)
+    - [Intro Pandas](#intro-pandas)
+    - [Loc](#loc-menú)
+    - [Creación y Manipulación de Columnas en Pandas](#creación-y-manipulación-de-columnas-en-pandas-menú)
+    - [Agrupaciones](#agrupaciones-menú)
+    - [Filtrado de Datos](#filtrado-de-datos-menú)
 - [Matplotlib](#matplotlib-menú)
 
 ## Introducción
@@ -42,7 +51,7 @@ import pandas as pd
 ```
 
 ## NumPy [(Menú)](#python-para-ciencia-de-datos)
-### Intro
+### Intro Numpy 
 NumPy nos permite realizar operaciones matemáticas y estadísitcas de alto rendimiento
 ### Algunas funcionalidades de numpy [(Menú)](#python-para-ciencia-de-datos)
 
@@ -103,7 +112,7 @@ matriz = np.array([[1, 2, 3], [32, 32, 32], [1, 1, 1], [7, 7, 7]])
 bool_index = matriz <= 6
 print(bool_index)
 ```
-### Broadcasting
+### Broadcasting [(Menú)](#python-para-ciencia-de-datos)
 Nos permite operar array de diferentes dimensiones normalizandolos en relación al array más grande, se deben cumplir ciertas condiciones, para aplicar estás funciones, en resumen es una operación que se puede replicar en el array más grande pero siempre y cuando la semantica del código lo permita.
 
 **Algunos ejemplos**
@@ -174,7 +183,7 @@ array_largo = np.arange(1,131)
 split_matriz =  np.split(array_largo,10)#Debe ser un multiplo para qué te genere la tabla
 print("Tabla del 13: ", split_matriz)
 ```
-### Copias y vistas
+### Copias y vistas [(Menú)](#python-para-ciencia-de-datos)
 **Copia**
 Cuando haces una copia de una estructura de datos (como una lista o un array de NumPy), Python crea una nueva instancia en memoria con los mismos valores, pero independiente del objeto original. Las modificaciones en la copia no afectan al objeto original.
 
@@ -211,7 +220,7 @@ vista = original[1:]
 print(copia.base)  # None, porque es una copia
 print(vista.base)  # <numpy.ndarray object>, porque es una vista
 ```
-### Darle reshaped y transpuesta 
+### Darle reshaped y transpuesta [(Menú)](#python-para-ciencia-de-datos)
 
 import numpy as np
 ```py
@@ -280,7 +289,7 @@ print("\nArray aplanado:")
 print(array_aplanado)
 
 ```
-### Resumen de código
+### Resumen de código [(Menú)](#python-para-ciencia-de-datos)
 **Elementales**
 ```py
 import numpy as np
@@ -358,7 +367,7 @@ print("Desviación estándar de los datos simulados:", desviacion_simulada)
 ```
 
 ## Pandas [(Menú)](#python-para-ciencia-de-datos)
-### intro
+### Intro Pandas
 https://pandas.pydata.org/docs/user_guide/
 
 Pandas está construido sobre NumPy, facilitando la manipulación y el análisis de datos, es ideal para trabajar con datos tabulares como los qué se encuentran en hojas de cálculos, o bases de datos relacionales. Una excelente bibliográfica qué me ayudo mucho en la universidad pero si aún no has llegado ahí puedes abordarla con simples **buenas bases de aritmetica y algebra** es **Álgebra líneal una introducción moderna por David Poole de la editorial CENGAGE Learning**.
@@ -447,7 +456,7 @@ print(data)
 print("\nDataFrame copia:")
 print(consulta_copia)
 ```
-### Datos Faltantes
+### Datos Faltantes [(Menú)](#python-para-ciencia-de-datos)
 **¿Cómo identificar los datos faltantes?**
 
 https://pandas.pydata.org/docs/user_guide/missing_data.html
@@ -496,7 +505,7 @@ filas_con_datos_no_disponible = tabla_rellenada[
 print("Filas con 'Datos no disponible':\n", filas_con_datos_no_disponible)
 ```
 Si volvemos apreguntar si hay datos no dispoibles pero a tabla_rellenada, encontraremos que no hay valores vacios.
-### Creación y Manipulación de Columnas en Pandas
+### Creación y Manipulación de Columnas en Pandas [(Menú)](#python-para-ciencia-de-datos)
 
 **Creación de una columan nueva en función de operaciones aritmeticas**
 ```py 
@@ -593,7 +602,53 @@ df = categorize_column(df, 'Temperature', new_column_name='Category_Temperature'
 # Mostrar el DataFrame resultante
 print(df)
 ```
+### Agrupaciones [(Menú)](#python-para-ciencia-de-datos)
+Las agrupaciones son similares a SQL o Postgres, dependen de una columna para el resultado relacionado a otra.
 
+```py
+import pandas as pd
+df = pd.read_csv("/content/drive/MyDrive/Curso de Python para Ciencia de Datos/Walmart_Sales.csv")
+# df.info()
+
+# Configurar pandas para mostrar números completos
+pd.options.display.float_format = '{:.2f}'.format
+
+
+# El agrupamiento de la cantidad de ventas por tienda qué haya en la base de datos
+# df["Store"].value_counts()
+
+# Suma de las ventas por tienda
+grupo_de_ventas =  df.groupby("Store")["Weekly_Sales"].sum()
+print(grupo_de_ventas)
+```
+Utilizando consultas simultaneas medinate .agg, en pandas es extremadamente flexible y permite aplicar múltiples funciones de agregación a un grupo o conjunto de columnas. Con .agg, puedes realizar operaciones como suma, promedio, conteo, y más, además de combinar varias funciones en una sola llamada.}
+
+```py
+import pandas as pd
+df = pd.read_csv("/content/drive/MyDrive/Curso de Python para Ciencia de Datos/Walmart_Sales.csv")
+
+grupo = df.groupby("Store").agg({
+    "Weekly_Sales": ['sum', 'mean'],
+    "Temperature": ['max', 'min']
+})
+
+print(grupo)
+```
+
+Obteniendo agrupaciones dentro de las agrupaciones, y utilizando varias operaciones para esos subconjuntos.
+
+```py
+import pandas as pd
+df = pd.read_csv("/content/drive/MyDrive/Curso de Python para Ciencia de Datos/Walmart_Sales.csv")
+
+grupo = df.groupby(["Store", "Fuel_Price"]).agg({
+    "Weekly_Sales": ['sum', 'mean'],
+    "Temperature": ['max', 'min']}
+)
+
+print(grupo)
+```
+### Filtrado de Datos [(Menú)](#python-para-ciencia-de-datos)
 
 
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
