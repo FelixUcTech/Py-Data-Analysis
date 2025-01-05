@@ -649,7 +649,9 @@ grupo = df.groupby(["Store", "Fuel_Price"]).agg({
 print(grupo)
 ```
 ### Filtrado de Datos [(Menú)](#python-para-ciencia-de-datos)
+Filtrar información nos permite centrar nuestra atención en lo que realmente importa para nuestro cliente o para nuestra actividad, al igual qué el filtrado inicial es super importante porque reduce la cantidad de recursos qué solicitamos, ejemplo en MongoDB se utiliza el filtrado de información $match antes o como primera capa para que los datos que se procesen sean menores.
 
+Suponiendo que tengo que realizar un análisis único de 
 
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
 
