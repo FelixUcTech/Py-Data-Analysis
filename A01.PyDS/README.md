@@ -13,7 +13,11 @@
     - [Creación y Manipulación de Columnas en Pandas](#creación-y-manipulación-de-columnas-en-pandas-menú)
     - [Agrupaciones](#agrupaciones-menú)
     - [Filtrado de Datos](#filtrado-de-datos-menú)
+    - [Pivot y Reshape en Pandas](#reestructuración-de-datos-pivot-y-reshape-en-pandas-menú)
+    - [Fusión de da DataFrames](#fusión-de-da-dataframes-menú)
+    - [Series Temporales](#series-temporales-menú)
 - [Matplotlib](#matplotlib-menú)
+    - [Intro Matplotlib](#intro-matplotlib-menú)
 
 ## Introducción
 Dentro de la sheet de colab podemos validar si están instalados los paquetes(bibliotecas de software)
@@ -651,8 +655,155 @@ print(grupo)
 ### Filtrado de Datos [(Menú)](#python-para-ciencia-de-datos)
 Filtrar información nos permite centrar nuestra atención en lo que realmente importa para nuestro cliente o para nuestra actividad, al igual qué el filtrado inicial es super importante porque reduce la cantidad de recursos qué solicitamos, ejemplo en MongoDB se utiliza el filtrado de información $match antes o como primera capa para que los datos que se procesen sean menores.
 
-Suponiendo que tengo que realizar un análisis único de 
+Suponiendo que tengo que realizar un análisis único de una tienda en particular, genero un subconjunto de datos de mi dataframe original.
+
+```py
+import pandas as pd
+df = pd.read_csv("/content/drive/MyDrive/Curso de Python para Ciencia de Datos/Walmart_Sales.csv")
+
+# Filtrado de Datos para la tienda 27
+df_tienda_27 = df[df["Store"] == 27]
+
+print("Filtrado de Datos para la tienda 27")
+print(df_tienda_27)
+```
+
+También podríamos agregar más de un filtro en una misma sentencia.
+```py
+import pandas as pd
+df = pd.read_csv("/content/drive/MyDrive/Curso de Python para Ciencia de Datos/Walmart_Sales.csv")
+
+# Filtrado de Datos para la tienda 27
+df_tienda_27 = df[(df["Store"] == 27) & (df["Weekly_Sales"] > 1000)]
+
+print("Filtrado de Datos para la tienda 27")
+print(df_tienda_27)
+```
+### Reestructuración de datos: Pivot y Reshape en Pandas [(Menú)](#python-para-ciencia-de-datos)
+Una pivot table es una herramienta para resumir y reorganizar columnas de un DataFrame de pandas, que además permite crear cálculos estadísticos (suma, conteos, promedios, etc.).
+
+Básicamente transforma los valores de determinadas filas o columnas en indices de un nuevo DataFrame, la intersección de éstos es el valor resultante.
+
+La nueva organización de los datos nos ayuda a encontrar patrones que pudieran estar ocultos en los datos crudos.
+
+Función:
+
+pivot_table(): Puede implementarse directo del DataFrame o a partir de la librería en si misma "pd.pivot_table()" con la diferencia de que ésta última recibe el DF como parámetro.
+**Parámetros:**
+- data: Cuando se utiliza la función directamente de pandas.
+- values: Nombre de la columna o columnas (lista) que rellenarán la tabla a partir de la función de agregación.
+- index: Nombre de la columna donde se tomarán los valores para crear los indices del DataFrame resultante.
+- columns: Nombre de la columna donde se tomarán los valores las nuevas columnas del DataFrame resultante.
+- aggfunc: Función de agregación a aplicar.
+
+```py
+import pandas as pd
+df = pd.read_csv("/content/drive/MyDrive/Curso de Python para Ciencia de Datos/Walmart_Sales.csv")
+
+# Crear una tabla pivote con el promedio de ventas semanales por tienda y fecha
+tabla_pivote = df.pivot(index='Date', columns='Store', values='Weekly_Sales')
+print(tabla_pivote)
+```
+### Fusión de da DataFrames [(Menú)](#python-para-ciencia-de-datos)
+Lo mecanísmo para hacer una funsión de datos, en pandas son similares a la forma de hacer los joins en sql, por lo qué dejare algunos ejemplos.
+```py
+import pandas as pd
+
+# DataFrame 1
+df1 = pd.DataFrame({
+    'id': [1, 2, 3],
+    'name': ['Alice', 'Bob', 'Charlie']
+})
+print("DataFrame 1:")
+print(df1)
+
+# DataFrame 2
+df2 = pd.DataFrame({
+    'id': [3, 4, 5],
+    'score': [85, 90, 95]
+})
+print("\nDataFrame 2:")
+print(df2)
+
+# DataFrame 3
+df3 = pd.DataFrame({
+    'name': ['Alice', 'David', 'Eve'],
+    'age': [24, 30, 28]
+})
+print("\nDataFrame 3:")
+print(df3)
+
+
+merged_df = pd.merge(df1, df2, on='id', how='inner')
+print("\nMerge (Inner Join) on 'id':")
+print(merged_df)
+
+
+concatenated_df = pd.concat([df1, df2], ignore_index=True)
+print("\nConcatenated DataFrame (Rows):")
+print(concatenated_df)
+
+
+inner_joined_df = pd.merge(df1, df3, on='name', how='inner')
+print("\nInner Join on 'name':")
+print(inner_joined_df)
+```
+### Series Temporales [(Menú)](#python-para-ciencia-de-datos)
+El manejo de series temporales en **Pandas** es crucial para trabajar con datos relacionados con el tiempo, como precios de acciones, datos meteorológicos o eventos registrados por tiempo. Pandas ofrece herramientas poderosas para trabajar con fechas y tiempos de manera eficiente.
+
+**Aspectos principales de series temporales en Pandas**
+
+1. **Fechas como índice (`DatetimeIndex`)**  
+   Es común usar fechas como índice para facilitar la manipulación y análisis.
+
+2. **Conversión de cadenas a fechas (`pd.to_datetime`)**  
+   Pandas permite convertir cadenas a objetos de fecha para trabajar con ellos.
+
+3. **Generación de rangos de fechas (`pd.date_range`)**  
+   Crear secuencias de fechas con una frecuencia específica.
+
+4. **Resampleo**  
+   Agrupar datos por frecuencia (diaria, semanal, mensual, etc.).
+
+5. **Seleccionar datos por rango de fechas**  
+   Filtrar datos en intervalos temporales.
+
+**Ejemplo práctico**
+
+```python
+import pandas as pd
+import numpy as np
+
+# Generar un rango de fechas
+dates = pd.date_range(start='2023-01-01', end='2023-01-10', freq='D')
+
+# Crear un DataFrame con datos aleatorios
+data = pd.DataFrame({
+    'date': dates,
+    'value': np.random.randint(10, 100, len(dates))
+})
+
+# Establecer la columna 'date' como índice
+data.set_index('date', inplace=True)
+print("DataFrame con índice de fechas:")
+print(data)
+
+# Filtrar datos por rango de fechas
+filtered_data = data['2023-01-03':'2023-01-07']
+print("\nDatos filtrados entre '2023-01-03' y '2023-01-07':")
+print(filtered_data)
+
+# Resamplear datos (frecuencia semanal)
+weekly_data = data.resample('W').mean()
+print("\nDatos resampleados (promedio semanal):")
+print(weekly_data)
+
+# Agregar una nueva columna con el mes
+data['month'] = data.index.month
+print("\nDataFrame con columna adicional del mes:")
+print(data)
+```
 
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
-
-Nos permite visualizar los datos de manera efectiva, 
+### Intro Matplotlib [(Menú)](#python-para-ciencia-de-datos)
+Nos permite visualizar los datos de manera efectiva, esta biblioteca fue creada por John Hunter, en 2003, 
