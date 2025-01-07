@@ -4,16 +4,16 @@ Este repositorio está diseñado para quienes están iniciando en el desarrollo 
 
 ## Contenido del Repositorio
 
-### A01. PyDS
+### A01. PyDS (Python Para Ciencia de Datos)
 Este bloque está orientado a la ciencia de datos, con un enfoque principal en Google Colab como entorno de desarrollo (Jupyter Notebook). Todas las notas relacionadas con este bloque se encuentran en el archivo `README.md` dentro de la carpeta `A01`.
 
-### A02. Pendiente
+### A02. EDA (Análisis Exploratorio de Datos)
 
-### A03. Pendiente
+### A03. Python-DataScience-Workspace
 
-### A04. Pendiente
+### A04. Missing-Data-Strategies
 
-### A05. Pendiente
+### A05. Data Imputation Techniques
 
 ---
 
