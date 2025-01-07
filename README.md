@@ -11,7 +11,7 @@ Este bloque está orientado a la ciencia de datos, con un enfoque principal en G
 
 ### A03. Pro DS Env Setup (Professional Data Science Environment Setup)
 
-### A04. Missing-Data-Strategies
+### A04. MDS (Missing-Data-Strategies)
 
 ### A05. Data Imputation Techniques
 
