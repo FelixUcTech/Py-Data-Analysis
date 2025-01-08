@@ -8,12 +8,16 @@ Este repositorio está diseñado para quienes están iniciando en el desarrollo 
 Este bloque está orientado a la ciencia de datos, con un enfoque principal en Google Colab como entorno de desarrollo (Jupyter Notebook). Todas las notas relacionadas con este bloque se encuentran en el archivo `README.md` dentro de la carpeta `A01`. Parte de la orientación hacia la compresión de las más relevantes herramientas de numpy, pandas y matplotlib. Sí tus bases son solidad en este apartado puedes no dedicarle mucho tiempo pero son utiles para repasar.
 
 ### A02. EDA (Análisis Exploratorio de Datos)
+Pendiente resumen
 
 ### A03. Pro DS Env Setup (Professional Data Science Environment Setup)
+Pendiente resumen
 
 ### A04. MDS (Missing-Data-Strategies)
+Pendiente resumen
 
 ### A05. Data Imputation Techniques
+Pendiente resumen
 
 ---
 
