@@ -3,6 +3,8 @@
     - [Intro](#intro-menú)
     - [¿Qué razones tenemos para comenzar un análisis exploratorio de datos?](#qué-razones-tenemos-para-comenzar-un-análisis-exploratorio-de-datos)
     - [Tipos de análisis de datos](#tipos-de-análisis-de-datos-menú)
+    - [Tipos de datos y análisis de variables](#tipos-de-datos-y-análisis-de-variables-menú)
+    -
 
 ## Preliminares [Menú](#análisis-exploratorio-de-datos)
 ### Intro [Menú](#análisis-exploratorio-de-datos)
@@ -43,6 +45,18 @@
 **PERO COMO ANÁLISTA ESTO DEBE TERMINAR EN ALGÚN MOMENTO PARA ENTREGAR VALOR AL CLIENTE**
 ![5P](/A02.EDA/A02.EDA-Imagenes/5pasos-3.png)
 ### Tipos de análisis de datos [Menú](#análisis-exploratorio-de-datos)
+Sin importar qué tus datos sean muy pequeños o muy bastos, los tipos de análitica que puedes hacer son las siguientes:
+
+![TDA1](/A02.EDA/A02.EDA-Imagenes/TiposDA1.png)
+
+**Ejmplo:**
+
+![TDA1](/A02.EDA/A02.EDA-Imagenes/TiposDA2.png)
+
+Estás estapas no son independientes una de la otra, es más, son dependientes una de la otra, cada etapa depende de qué la anterior se haya hecho correctamente para poder pasar a la siguiente.
+
+![TDA1](/A02.EDA/A02.EDA-Imagenes/TiposDA3.png)
+### Tipos de datos y análisis de variables [Menú](#análisis-exploratorio-de-datos)
 
 ## Análisis Univariado
 

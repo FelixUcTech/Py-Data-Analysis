@@ -18,6 +18,7 @@
     - [Series Temporales](#series-temporales-menú)
 - [Matplotlib](#matplotlib-menú)
     - [Intro Matplotlib](#intro-matplotlib-menú)
+    - [Personalización de Gráficos](#personalización-de-gráficos-menú)
 
 ## Introducción
 Dentro de la sheet de colab podemos validar si están instalados los paquetes(bibliotecas de software)
@@ -806,4 +807,79 @@ print(data)
 
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
 ### Intro Matplotlib [(Menú)](#python-para-ciencia-de-datos)
-Nos permite visualizar los datos de manera efectiva, esta biblioteca fue creada por John Hunter, en 2003, 
+Nos permite visualizar los datos de manera efectiva, esta biblioteca fue creada por John Hunter, en 2003,
+Es una estandar para la creación de gráficos en varias diciplinas, desde gráficos de ciencias elementales hasta finanzas.
+
+[Link de Referencia: MATPLOTLIB](https://matplotlib.org/stable/install/index.html)
+
+**Para instalar la librería**
+
+*En entornos como googlecolab estás librerías ya están instaladas*
+```sh
+pip install matplotlib 
+```
+**Importación de modulos principales**
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+- **Gráfico de líneas:** Es útil para una varible en relación al tiempo. Es especialmente útil para identificar patrones, o estacionalidad en relación a una tendencia.
+
+*Ejemplo básico:*
+```py
+mes = np.array(["Enero","Febrero","Marzo","Abril"])
+ventas = np.array([25,27,62,21])
+
+# Configurar el tamaño de gráfico
+#Configurar las dimensiones
+plt.figure(figsize=(8,6))
+
+# Crear el gráfico
+# Determinando las dimensiones debemos definir el tipo de gráfico
+# De acuerdo a un plano cartesiano
+# plt.plot(x,y) equivalente a los dos arrays definidos
+plt.plot(mes,ventas, marker='o', color='blue')
+
+#Caracterísiticas del gráfico
+plt.title('Ventas mensaules de un producto')
+plt.xlabel('Meses')
+plt.ylabel('Ventas en billones de unidades')
+```
+![EjmploMPL](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL.png)
+
+- **Gráfico de dispersión:** Este gráfico es principalmente útil para relacionar dos varibles y su relación, cómo varibales independientes, ejemplo temperatura y la presión en una línea de producción y ver la tendencia de producción, el flujo, la calidad quimíca del resultado etc etc.
+
+```py
+#Horas de Estudio
+HE = np.array([1,2,3,4,5,6,7,8,9,9])
+#Calificación
+C = np.array([10,15,25,34,66,44,57,67,77,90])
+
+# Crear el gráfico
+# 
+plt.scatter(HE,C,color='blue')
+
+#Caracterísiticas del gráfico
+plt.title('Hora de estudio contra Nota')
+plt.xlabel('Horas de Estudio')
+plt.ylabel('Calificación')
+```
+![EjmploMPL](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL2.png)
+
+**Nota importante:** Una forma de resumir un punto importante, para cada gráfico ya sea plt.plot() o plt.scatter(), los array que se utilicen seben mantener el mismo tamaño, es decir la misma cantidad de elementos.
+### Personalización de Gráficos [(Menú)](#python-para-ciencia-de-datos)
+
+```py
+
+```
+
+```py
+
+```
+```py
+
+```
+```py
+
+```
