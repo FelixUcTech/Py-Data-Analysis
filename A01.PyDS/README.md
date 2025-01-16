@@ -19,6 +19,7 @@
 - [Matplotlib](#matplotlib-menú)
     - [Intro Matplotlib](#intro-matplotlib-menú)
     - [Personalización de Gráficos](#personalización-de-gráficos-menú)
+    - [Gráficos de Barras y Diagramas de Pastel](#gráficos-de-barras-y-diagramas-de-pastel-menú)
 
 ## Introducción
 Dentro de la sheet de colab podemos validar si están instalados los paquetes(bibliotecas de software)
@@ -869,13 +870,77 @@ plt.ylabel('Calificación')
 
 **Nota importante:** Una forma de resumir un punto importante, para cada gráfico ya sea plt.plot() o plt.scatter(), los array que se utilicen seben mantener el mismo tamaño, es decir la misma cantidad de elementos.
 ### Personalización de Gráficos [(Menú)](#python-para-ciencia-de-datos)
+La personalización de gráficos nos ayuda a qué nuestra información sea más clara, llamativa, informativa y atractiva. Un ejemplo de lo qué podemos personalizar es:
+
+- Titulos
+- Etiquetas
+- Leyendas
+- Estilos de línea
+- Marcadores
+- Etc
+
+**Ejemplo de gráfico de dispersión**
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+#Horas de Estudio
+HE = np.array([2,3,4,5,6,7,8])
+#Calificación
+Estudiante001 = np.array([10,15,25,44,66,74,97])
+Estudiante002 = np.array([11,13,30,60,46,74,87])
+
+# Gráfico de dispersión de dos estudiantes
+plt.scatter(HE, Estudiante001, marker='o', color='red', linestyle='-', label='Estudiante 1')
+plt.scatter(HE, Estudiante002, marker='s', color="blue", linestyle="--", label='Estudiante 1')
+
+#Caracterísiticas del gráfico
+plt.title('Hora de estudio contra Nota de dos estudiantes')
+plt.xlabel('Horas de Estudio')
+plt.ylabel('Calificación')
+```
+![EjmploMPL](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL3.png)
+
+**Ejemplo de gráfico de líneas mismos valores**
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+#Horas de Estudio
+HE = np.array([2,3,4,5,6,7,8])
+#Calificación
+Estudiante001 = np.array([10,15,25,44,66,74,97])
+Estudiante002 = np.array([11,13,30,60,46,74,87])
+
+# Gráfico de dispersión de dos estudiantes
+plt.plot(HE, Estudiante001, marker='o', color='red', linestyle='-', linewidth = 2, label='Estudiante 1')
+plt.plot(HE, Estudiante002, marker='s', color="blue", linestyle="--", linewidth = 2, label='Estudiante 1')
+
+#Caracterísiticas del gráfico
+plt.title('Hora de estudio contra Nota de dos estudiantes')
+plt.xlabel('Horas de Estudio')
+plt.ylabel('Calificación')
+```
+![EjmploMPL](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL4.png)
+### Gráficos de Barras y Diagramas de Pastel [(Menú)](#python-para-ciencia-de-datos)
+Los gráficos de barra y de pastel se utilizan para representar datos categóricos de manera vizual y compresible
 
 ```py
 
 ```
-
+```py
+```
 ```py
 
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
 ```
 ```py
 

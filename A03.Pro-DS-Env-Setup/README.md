@@ -103,6 +103,22 @@ conda env export --from-history --file enviroment.yml
 cookiecutter https://github.com/platzi/curso-entorno-avanzado-ds --checkout cookiecutter-personal-platzi
 ```
 ### Crear plantillas de proyecto personalizadas [Menú](#pro-ds-env-setup-professional-data-science-environment-setup)
+Partiendo de la creación de una carpeta, dentro de ella se declaran algunas cosas basicas de un proyecto como:
+
+Al final esta estructura definida va a guardar la estructura que se defina y también los errores, por lo cual es bueno ser cuidadoso con dicha estructura y definiciones.
+
+- [{{cookiecutter.project_slug}}](/A03.Pro-DS-Env-Setup/{{cookiecutter.project_slug}}/)
+    - data
+    - notebooks
+    - READMe.m
+    - etc
+
+Muchos valores del templet que desarrolles pueden ser variados, por lo cual podemos definirlo mediante el doble {{}}, ejemplo de esto esta en [README.md](/A03.Pro-DS-Env-Setup/{{cookiecutter.project_slug}}/README.md), donde definimos el algunos campos que se llenarán al incio de general la plantilla.
+
+
+
+
+
 
 ## Manjeo de archivos en Python [Menú](#pro-ds-env-setup-professional-data-science-environment-setup)
 

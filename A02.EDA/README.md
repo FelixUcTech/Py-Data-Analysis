@@ -4,7 +4,8 @@
     - [¿Qué razones tenemos para comenzar un análisis exploratorio de datos?](#qué-razones-tenemos-para-comenzar-un-análisis-exploratorio-de-datos)
     - [Tipos de análisis de datos](#tipos-de-análisis-de-datos-menú)
     - [Tipos de datos y análisis de variables](#tipos-de-datos-y-análisis-de-variables-menú)
-    -
+    - [Herramientas en el análisis exploratorio de datos](#herramientas-en-el-análisis-exploratorio-de-datos-menú)
+    - 
 
 ## Preliminares [Menú](#análisis-exploratorio-de-datos)
 ### Intro [Menú](#análisis-exploratorio-de-datos)
@@ -57,6 +58,19 @@ Estás estapas no son independientes una de la otra, es más, son dependientes u
 
 ![TDA1](/A02.EDA/A02.EDA-Imagenes/TiposDA3.png)
 ### Tipos de datos y análisis de variables [Menú](#análisis-exploratorio-de-datos)
+**¿Qué tipo de datos y cómo clasificarlos?**
+![Tipo De Datos](/A02.EDA/A02.EDA-Imagenes/TipoDeDatos.png)
+
+**¿Qué tipo de análisis puedes realizar sobre tus datos?**
+![Tipo De Analisis](/A02.EDA/A02.EDA-Imagenes/tipodeanalisis.png)
+
+Por lo general tenemos a encontrar en el campo laboral, análisis multivariado, pero dentro de análisis complejos donde todas las varibles se relacionan es bueno realizar análisis univaridos, parapasar al bivariado, y entender como las varibles van aportando a cada determinada etapa del procesamiento de la información. Y así llegar a un análisis exploratorio de datos que cumpla y pueda dar una respuesta congruente con los datos.
+### Herramientas en el análisis exploratorio de datos [Menú](#análisis-exploratorio-de-datos)
+**Ejemplos**
+![Tools](/A02.EDA/A02.EDA-Imagenes/tools.png)
+
+Al final esta estructura definida va a guardar la estructura que se defina y también los errores, por lo cual es bueno ser cuidadoso con dicha estructura y definiciones.
+
 
 ## Análisis Univariado
 
