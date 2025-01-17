@@ -4,6 +4,7 @@
     - [¿Qué son y porque utilizar plantillas de proyectos?](#qué-son-y-porque-utilizar-plantillas-de-proyectos-menú)
     - [Cookiecutter](#cookiecutter-menú)
     - [Crear plantillas de proyecto personalizadas](#crear-plantillas-de-proyecto-personalizadas-menú)
+    - [Hooks](#hooks-menú)
 - [Manjeo de archivos en Python](#manjeo-de-archivos-en-python-menú)
 - [Ejemplo Práctico](#ejemplo-práctico-menú)
 
@@ -117,12 +118,9 @@ Muchos valores del templet que desarrolles pueden ser variados, por lo cual pode
 
 Entodos lados pueden andar declarando alias con cookiecutter que al momento de ejecutar para generar una estructura basada en tu template se podran remplazar por el usuario, pero un archivo .json se declaran las varibles por default, para este ejemplo no es la acepción, [Varibles por defaul](/A03.Pro-DS-Env-Setup/Creación%20de%20plantilla/cookiecutter.json)
 
-
-
-
-
-
-
+Siguiendo el ejemplo el el punto anterior la carpeta definida como [Creación de plantilla](/A03.Pro-DS-Env-Setup/Creación%20de%20plantilla/), sería el equivalente al link del repo, pero esta vez el despliegue sería local en vez de traerlo de una plantilla en línea.
+### Hooks [Menú](#pro-ds-env-setup-professional-data-science-environment-setup)
+Los hooks o también llamados ganchos, es una herramienta qué puede aplir las capacidades de cookiecutter, estos se ejecutan antes o después de generar la plantilla de datos.
 
 
 ## Manjeo de archivos en Python [Menú](#pro-ds-env-setup-professional-data-science-environment-setup)
