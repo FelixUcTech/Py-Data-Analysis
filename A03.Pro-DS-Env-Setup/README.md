@@ -107,13 +107,18 @@ Partiendo de la creación de una carpeta, dentro de ella se declaran algunas cos
 
 Al final esta estructura definida va a guardar la estructura que se defina y también los errores, por lo cual es bueno ser cuidadoso con dicha estructura y definiciones.
 
-- [{{cookiecutter.project_slug}}](/A03.Pro-DS-Env-Setup/{{cookiecutter.project_slug}}/)
+- [{{cookiecutter.project_slug}}](/A03.Pro-DS-Env-Setup/Creación%20de%20plantilla/{{%20cookiecutter.project_slug%20}}/)
     - data
     - notebooks
     - READMe.m
     - etc
 
-Muchos valores del templet que desarrolles pueden ser variados, por lo cual podemos definirlo mediante el doble {{}}, ejemplo de esto esta en [README.md](/A03.Pro-DS-Env-Setup/{{cookiecutter.project_slug}}/README.md), donde definimos el algunos campos que se llenarán al incio de general la plantilla.
+Muchos valores del templet que desarrolles pueden ser variados, por lo cual podemos definirlo mediante el doble {{}}, ejemplo de esto esta en [README.md](/A03.Pro-DS-Env-Setup/Creación%20de%20plantilla/README.md), donde definimos el algunos campos que se llenarán al incio de general la plantilla.
+
+Entodos lados pueden andar declarando alias con cookiecutter que al momento de ejecutar para generar una estructura basada en tu template se podran remplazar por el usuario, pero un archivo .json se declaran las varibles por default, para este ejemplo no es la acepción, [Varibles por defaul](/A03.Pro-DS-Env-Setup/Creación%20de%20plantilla/cookiecutter.json)
+
+
+
 
 
 
