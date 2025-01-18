@@ -91,6 +91,108 @@ print(pd.Series([1, np.nan]))
 ```
 ### Conociendo datasets para manejo de datos faltantes [Menú](#missing-data-strategies)
 
+**Nota:** Normalmente es buena práctica cargar las librerías antes de ejecutar funciones en deepnotes o en jupyternotebooks.
+
+**Importar librerías**
+```py
+import janitor
+import matplotlib.pyplot as plt
+import missingno
+import numpy as np
+import pandas as pd
+import pyreadr
+import seaborn as sns
+import session_info
+import upsetplo
+```
+**Cargar los conjuntos de datos de deepnote**
+```py
+pima_indians_diabetes_url = "https://nrvis.com/data/mldata/pima-indians-diabetes.csv"
+```
+**Dentro de un ambiente de JupyterNotebooks para ejecutar comandos de terminal, se utiliza el signo de exclamación al inicio !**
+```sh
+# Descargar un archivo desde una URL y guardarlo con un nombre específico en el directorio ./data.
+# -O: Especifica el nombre y la ubicación donde se guardará el archivo.
+# {pima_indians_diabetes_url}: Representa una variable que contiene la URL del archivo a descargar.
+# -q: Activa el modo silencioso, evitando que se muestren mensajes de progreso.
+!wget -O ./data/pima-indians-diabetes.csv {pima_indians_diabetes_url} -q
+```
+**Pandas directamente te permite cargar los archivos desde una url, pero es una buena práctica cargar los archivos en local**
+```py
+diabetes_df = pd.read_csv(
+    filepath_or_buffer="./data/pima-indians-diabetes.csv", # or pima_indians_diabetes_url
+    sep=",",
+    names=[
+        "pregnancies",
+        "glucose",
+        "blood_pressure",
+        "skin_thickness",
+        "insulin",
+        "bmi",
+        "diabetes_pedigree_function",
+        "age",
+        "outcome",
+    ]
+)
+```
+**El código descarga datasets en formato .rda desde una URL base, los guarda localmente, los convierte en DataFrames usando pyreadr, y los organiza en un diccionario. Luego, registra los DataFrames como variables locales, examina sus dimensiones, estructura y detecta valores faltantes en uno de ellos.**
+```py
+# Definir la URL base donde se encuentran los archivos de datos
+base_url = "https://github.com/njtierney/naniar/raw/master/data/"
+
+# Lista de nombres de los datasets que queremos descargar
+datasets_names = ("oceanbuoys", "pedestrian", "riskfactors")
+
+# Extensión de los archivos de los datasets
+extension = ".rda"
+
+# Crear un diccionario vacío para almacenar los DataFrames después de leerlos
+datasets_dfs = {}
+
+# Iterar sobre cada nombre de dataset
+for dataset_name in datasets_names:
+    # Construir el nombre completo del archivo
+    dataset_file = f"{dataset_name}{extension}"
+    
+    # Definir la ruta local donde se guardará el archivo
+    dataset_output_file = f"./data/{dataset_file}"
+    
+    # Construir la URL completa del archivo a descargar
+    dataset_url = f"{base_url}{dataset_file}"
+    
+    # Descargar el archivo desde la URL y guardarlo localmente
+    !wget -q -O {dataset_output_file} {dataset_url}
+    
+    # Leer el archivo .rda descargado usando pyreadr y obtener el DataFrame correspondiente
+    datasets_dfs[f"{dataset_name}_df"] = pyreadr.read_r(dataset_output_file).get(dataset_name)
+
+# Ver las claves (nombres) del diccionario que contiene los DataFrames
+datasets_dfs.keys()
+
+# Actualizar las variables locales con las claves y valores del diccionario datasets_dfs
+locals().update(**datasets_dfs)
+
+# Limpiar las variables no necesarias
+del datasets_dfs
+
+# Obtener información sobre las dimensiones de los DataFrames
+oceanbuoys_df.shape, pedestrian_df.shape, riskfactors_df.shape, diabetes_df.shape
+
+# Mostrar información básica sobre el DataFrame `riskfactors_df`
+riskfactors_df.info()
+
+# Verificar valores faltantes en el DataFrame `riskfactors_df`
+riskfactors_df.isna()
+```
+
+**Documentación**
+- [kaggle-Dataset](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
+- [naniar](https://github.com/njtierney/naniar)
+- [R](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html)
+
+
+
+
 ## Manipulación inicial de Valores Faltantes [Menú](#missing-data-strategies)
 
 ## Busqueda de relaciones de Valores Faltantes [Menú](#missing-data-strategies)
