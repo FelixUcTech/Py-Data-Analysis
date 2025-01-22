@@ -20,6 +20,9 @@
     - [Intro Matplotlib](#intro-matplotlib-menú)
     - [Personalización de Gráficos](#personalización-de-gráficos-menú)
     - [Gráficos de Barras y Diagramas de Pastel](#gráficos-de-barras-y-diagramas-de-pastel-menú)
+    - [Histograma y Boxplot](#histograma-y-boxplot-menú)
+    - [Series de tiempo y fechas](#series-de-tiempo-y-fechas-menú)
+    
 
 ## Introducción
 Dentro de la sheet de colab podemos validar si están instalados los paquetes(bibliotecas de software)
@@ -923,28 +926,492 @@ plt.ylabel('Calificación')
 ### Gráficos de Barras y Diagramas de Pastel [(Menú)](#python-para-ciencia-de-datos)
 Los gráficos de barra y de pastel se utilizan para representar datos categóricos de manera vizual y compresible
 
+**Crear un gráfico de barra**
 ```py
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8,6))
+
+# Datos de ejemplo
+cat = ["PA","PB","PC"]
+ventas = [10,20,30]
+
+# Crear el gráfico de barras
+plt.bar(cat, ventas, color="skyblue", label="Ventas")
+
+# Caracterísiticas del gráfico
+plt.title("Ventas por Categoría mensual")
+plt.xlabel("Categoría")
+plt.ylabel("Ventas")
+```
+![Gráfico de barra](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL5.png)
+
+**Hay ciertas personalizaciones para cada gráfico**
+```py
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12,7.5))
+
+# Datos de ejemplo
+cat = ["PA","PB","PC"]
+ventas = [10,20,30]
+
+# Crear el gráfico de barras
+plt.bar(cat, ventas, color="skyblue", label="Ventas")
+
+#Anotación para destacar un punto en específico
+plt.annotate("Máximo de ventas", xy=("PC",30.5), arrowprops= dict(facecolor="black", shrink=0.25), xytext=(1,25))
+
+# Caracterísiticas del gráfico
+plt.title("Ventas por Categoría mensual")
+plt.xlabel("Categoría")
+plt.ylabel("Ventas")
+
+#plt.legend()
+
+plt.show()
+```
+![Gráfico de barra](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL6.png)
+
+**Gráfico horizontal**
+```py
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12,7.5))
+
+# Datos de ejemplo
+cat = ["PA","PB","PC"]
+ventas = [10,20,30]
+
+# Crear el gráfico de barras
+plt.barh(cat, ventas, color="skyblue", label="Ventas")
+
+# Caracterísiticas del gráfico
+plt.title("Ventas por Categoría mensual")
+plt.xlabel("Categoría")
+plt.ylabel("Ventas")
+
+#plt.legend()
+
+plt.show()
+```
+![Gráfico de barra](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL7.png)
+
+Es recomendable usar diagramas de pastel cuando se tienen pocas categorías con diferencias claves en al proporción.
+
+```py
+# prompt: crea una gráfica de pastel 
+
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12,10))
+
+# Datos de ejemplo para el gráfico de pastel
+Productos = ['A', 'B', 'C', 'D']
+sizes = [15, 30, 45, 10]
+
+# Crear el gráfico de pastel
+plt.pie(sizes, labels=Productos, autopct='%2.2f%%', startangle=110)
+
+# Agregar un título al gráfico
+plt.title('Gráfico de Pastel de Ejemplo')
+
+#Asegurar qué sea un círculo
+plt.axis('equal')
+
+# Mostrar el gráfico
+plt.show()      
+```
+![Diagrama de Pastel](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL8.png)
+### Histograma y Boxplot [(Menú)](#python-para-ciencia-de-datos)
+Son las herramientas gráficas para ver la distribución estadística de un conjunto de datos, es una herramienta que permite analizar la variabilidad para identificar posibles anomalias. 
+
+**Generar números randon de acuerdo a una desviación estadística dada**
+
+```py
+import numpy as np
+import matplotlib.pyplot as plt
+
+datos = np.random.normal(170, 10, 200)
+print(datos)
+```
+
+**Algunas funcionalidades de los histogramas de plt**
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Datos de ejemplo (reemplaza con tus datos)
+datos = np.random.normal(170, 10, 200)
+
+# Crear el histograma
+plt.hist(datos, 
+         bins=20,         # Número de bins (intervalos)
+         range=(140, 200), # Rango de valores a mostrar
+         density=False,    # Normalizar el histograma (área total = 1)
+         weights=None,     # Pesos para cada valor
+         cumulative=False, # Histograma acumulativo
+         bottom=None,      # Valor de desplazamiento vertical
+         histtype='bar',   # Tipo de histograma ('bar', 'barstacked', 'step', 'stepfilled')
+         align='mid',      # Alineación de las barras ('left', 'mid', 'right')
+         orientation='vertical', # Orientación del histograma ('vertical', 'horizontal')
+         rwidth=0.9,       # Ancho relativo de las barras (0-1)
+         log=False,        # Escala logarítmica en el eje y
+         color="salmon", # Usar colores suaves para cada barra
+         label='Datos',     # Etiqueta de la leyenda
+         alpha=0.9         # Transparencia de las barras
+         )
+
+# Personalizar el gráfico
+plt.title('Histograma de Datos', fontsize=16)  # Título del gráfico
+plt.xlabel('Valores', fontsize=12)            # Etiqueta del eje x
+plt.ylabel('Frecuencia', fontsize=12)          # Etiqueta del eje y
+plt.grid(True, linestyle='--', alpha=0.5)      # Agregar una cuadrícula
+plt.legend(loc='upper right')                  # Mostrar la leyenda
+plt.xticks(np.arange(140, 201, 10))            # Personalizar los ticks del eje x
+plt.yticks(np.arange(0, 60, 5))                # Personalizar los ticks del eje y
+
+# Mostrar el gráfico
+plt.show()
+```
+![Histograma](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL11.png)
+
+**Boxplot**
+
+Boxplot o diagramas de caja son gráficos que resumen la información de los histogramas, ¿Qué es un Boxplot?
+Un boxplot, o diagrama de caja, es una herramienta visual utilizada en el análisis exploratorio de datos para resumir la distribución de un conjunto de datos. Este gráfico representa la mediana, los cuartiles y los posibles valores atípicos, proporcionando una visión rápida de la dispersión y la asimetría de los datos.
+
+Componentes de un Boxplot:
+
+- Box (Caja): Representa el rango intercuartil (IQR), que incluye el 50% central de los datos. Los bordes de la caja indican el primer cuartil (Q1) y el tercer cuartil (Q3).
+- Median (Mediana): Indica el valor central de los datos, dividiendo el conjunto en dos partes iguales.
+- Whiskers (Bigotes): Extienden desde los cuartiles hasta los valores mínimos y máximos dentro de 1.5 veces el IQR. Ayudan a identificar la extensión de los datos sin incluir los valores atípicos.
+- Outliers (Valores Atípicos): Representan los valores que se encuentran fuera del rango de los bigotes.
+
+El boxplot es especialmente útil para comparar la distribución de los datos entre diferentes grupos o categorías y para identificar rápidamente anomalías o valores extremos en un conjunto de datos.
+
+El boxplot es una herramienta poderosa para el análisis exploratorio de datos, permitiendo a los analistas visualizar rápidamente la distribución de los datos y detectar valores atípicos. Su capacidad para resumir la información clave de un conjunto de datos en un formato visual compacto lo hace ideal para comparar distribuciones entre diferentes grupos o categorías.
+
+Al integrar boxplots en el análisis de datos, se puede obtener una comprensión más profunda de las características subyacentes de los datos, facilitando la toma de decisiones informadas y la identificación de patrones significativos.
+
+[Boxplots documentación](https://matplotlib.org/stable/gallery/statistics/boxplot_demo.html)
+
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+
+from matplotlib.patches import Polygon
+
+# Fixing random state for reproducibility
+np.random.seed(19680801)
+
+# fake up some data
+spread = np.random.rand(50) * 100
+center = np.ones(25) * 50
+flier_high = np.random.rand(10) * 100 + 100
+flier_low = np.random.rand(10) * -100
+data = np.concatenate((spread, center, flier_high, flier_low))
+
+fig, axs = plt.subplots(2, 3)
+
+# basic plot
+axs[0, 0].boxplot(data)
+axs[0, 0].set_title('basic plot')
+
+# notched plot
+axs[0, 1].boxplot(data, notch=True)
+axs[0, 1].set_title('notched plot')
+
+# change outlier point symbols
+axs[0, 2].boxplot(data, sym='gD')
+axs[0, 2].set_title('change outlier\npoint symbols')
+
+# don't show outlier points
+axs[1, 0].boxplot(data, sym='')
+axs[1, 0].set_title("don't show\noutlier points")
+
+# horizontal boxes
+axs[1, 1].boxplot(data, sym='rs', orientation='horizontal')
+axs[1, 1].set_title('horizontal boxes')
+
+# change whisker length
+axs[1, 2].boxplot(data, sym='rs', orientation='horizontal', whis=0.75)
+axs[1, 2].set_title('change whisker length')
+
+fig.subplots_adjust(left=0.08, right=0.98, bottom=0.05, top=0.9,
+                    hspace=0.4, wspace=0.3)
+
+# fake up some more data
+spread = np.random.rand(50) * 100
+center = np.ones(25) * 40
+flier_high = np.random.rand(10) * 100 + 100
+flier_low = np.random.rand(10) * -100
+d2 = np.concatenate((spread, center, flier_high, flier_low))
+# Making a 2-D array only works if all the columns are the
+# same length.  If they are not, then use a list instead.
+# This is actually more efficient because boxplot converts
+# a 2-D array into a list of vectors internally anyway.
+data = [data, d2, d2[::2]]
+
+# Multiple box plots on one Axes
+fig, ax = plt.subplots()
+ax.boxplot(data)
+
+plt.show()
+```
+
+![Gráfico de barra](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL9.png)
+![Gráfico de barra](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL10.png)
+
+Para generar valores random que puedan ser reproducibles para diversos modelos, se utilizar un comando que nos permite establecer reproducibilidad en valores generados de manera aleatoria.
+
+```py
+import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(27)
+
+# Datos de ejemplo para tres grupos de edades
+edades_grupo1 = np.random.normal(25, 6, 50)  # Grupo 1: Media 25, desviación estándar 6
+edades_grupo2 = np.random.normal(35, 7, 60)  # Grupo 2: Media 35, desviación estándar 7
+edades_grupo3 = np.random.normal(45, 12, 70)  # Grupo 3: Media 45, desviación estándar 12
+
+datos = [edades_grupo1, edades_grupo2, edades_grupo3]
+
+# Crear el boxplot
+plt.figure(figsize=(10, 6))  # Ajustar el tamaño de la figura
+plt.boxplot(datos, 
+            notch=True,       # Mostrar muescas en las cajas
+            sym='x',          # Símbolo para los valores atípicos
+            vert=True,        # Orientación vertical (True) u horizontal (False)
+            whis=1.5,         # Longitud de las líneas de bigote (factor de la IQR)
+            patch_artist=True, # Rellenar las cajas con color
+            showmeans=True,    # Mostrar la media con un símbolo
+            labels=['Grupo 1 (20-29)', 'Grupo 2 (30-39)', 'Grupo 3 (40-49)'], #Etiquetas personalizadas   
+```
+![BoxPlot](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL12.png)
+### Series de tiempo y fechas [(Menú)](#python-para-ciencia-de-datos)
+
+Representación de cambios de una variables en el tiempo.
+
+```py
+import pandas as pd                 # Manejo de datos en formato DataFrame.
+import numpy as np                  # Operaciones numéricas.
+import matplotlib.pyplot as plt     # Creación de gráficos.
+from matplotlib.dates import DateFormatter  # Formateo de fechas.
+
+# Crear un rango de fechas mensual de 12 meses comenzando en enero de 2023.
+fechas = pd.date_range(start='2023-01-01', periods=100, freq='M')
+
+# Generar 12 valores aleatorios entre 1000 y 5000 para representar ventas.
+ventas = np.random.randint(1000, 5000, size=100)
+
+# Crear un DataFrame con las fechas y las ventas.
+data = pd.DataFrame({'Fecha': fechas, 'Ventas': ventas})
+
+# Configurar la figura y su tamaño.
+plt.figure(figsize=(12, 6))  # Establece las dimensiones del gráfico (ancho x alto en pulgadas).
+
+# Crear un gráfico de línea con opciones personalizables.
+plt.plot(
+    data['Fecha'],            # Eje X: las fechas.
+    data['Ventas'],           # Eje Y: las ventas.
+    marker='o',               # Marcador en cada punto ('o' para círculo, otros: 's', '^', 'd', etc.).
+    linestyle='-',            # Estilo de la línea ('-' para continua, '--' para discontinua, etc.).
+    linewidth=2,              # Grosor de la línea.
+    color='green',             # Color de la línea (puedes usar nombres o códigos hexadecimales como '#FF5733').
+    markerfacecolor='red',    # Color de relleno de los marcadores.
+    markeredgecolor='black',  # Color del borde de los marcadores.
+    markersize=8,             # Tamaño de los marcadores.
+    label='Ventas Mensuales', # Etiqueta para la leyenda.
+    alpha=0.8                 # Transparencia de la línea (1 es opaco, 0 es completamente transparente).
+)
+
+# Configurar el título del gráfico con estilo adicional.
+plt.title(
+    'Análisis de Ventas Mensuales',  # Texto del título.
+    fontsize=16,                     # Tamaño de fuente.
+    fontweight='bold',               # Grosor de la fuente ('normal', 'bold', etc.).
+    color='darkblue'                 # Color del texto.
+)
+
+# Etiqueta del eje X con personalización.
+plt.xlabel(
+    'Fecha',               # Texto de la etiqueta.
+    fontsize=12,           # Tamaño de fuente.
+    fontstyle='italic',    # Estilo de la fuente ('normal', 'italic', etc.).
+    color='darkgreen'      # Color del texto.
+)
+
+# Etiqueta del eje Y con personalización.
+plt.ylabel(
+    'Ventas',              # Texto de la etiqueta.
+    fontsize=12,           # Tamaño de fuente.
+    fontstyle='italic',    # Estilo de la fuente.
+    color='darkgreen'      # Color del texto.
+)
+
+# Personalizar las marcas (ticks) del eje X.
+plt.xticks(
+    rotation=45,           # Rotación de las etiquetas.
+    fontsize=10,           # Tamaño de fuente.
+    color='gray'           # Color de las etiquetas.
+)
+
+# Personalizar las marcas (ticks) del eje Y.
+plt.yticks(
+    fontsize=10,           # Tamaño de fuente.
+    color='gray'           # Color de las etiquetas.
+)
+
+# Agregar una cuadrícula al gráfico.
+plt.grid(
+    True,                  # Mostrar la cuadrícula.
+    linestyle='--',        # Estilo de la línea de la cuadrícula ('-', '--', etc.).
+    linewidth=0.5,         # Grosor de las líneas de la cuadrícula.
+    alpha=0.7              # Transparencia de la cuadrícula.
+)
+
+# Mostrar una leyenda en el gráfico.
+plt.legend(
+    loc='upper left',      # Posición de la leyenda ('best', 'upper right', 'lower left', etc.).
+    fontsize=10,           # Tamaño de fuente de la leyenda.
+    frameon=True,          # Mostrar un marco alrededor de la leyenda.
+    shadow=True,           # Agregar sombra al marco.
+    facecolor='lightyellow', # Color de fondo del marco.
+    edgecolor='black'      # Color del borde del marco.
+)
+
+# Ajustar los márgenes alrededor del gráfico.
+plt.tight_layout()
+
+# Mostrar el gráfico final.
+plt.show()
 
 ```
-```py
-```
-```py
 
-```
-```py
+![MPL13](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL13.png)
 
-```
-```py
+**Ventas acumuladas**
 
-```
 ```py
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter
 
-```
-```py
-```
-```py
+# Establecer semilla para reproducibilidad
+np.random.seed(42)
 
-```
-```py
+# Crear un rango de fechas mensual de 12 meses comenzando en enero de 2023.
+fechas = pd.date_range(start='2023-01-01', periods=12, freq='M')
 
+# Generar 12 valores aleatorios entre 1000 y 5000 para representar ventas mensuales.
+ventas_mensuales = np.random.randint(1000, 5000, size=12)
+
+# Calcular la suma acumulada de las ventas.
+ventas_acumuladas = np.cumsum(ventas_mensuales)
+
+# Crear un DataFrame con las fechas, ventas mensuales y ventas acumuladas.
+data = pd.DataFrame({
+    'Fecha': fechas,
+    'Ventas Mensuales': ventas_mensuales,
+    'Ventas Acumuladas': ventas_acumuladas
+})
+
+# Configurar la figura y su tamaño.
+plt.figure(figsize=(12, 6))
+
+# Crear un gráfico de línea para las ventas acumuladas con personalización.
+plt.plot(
+    data['Fecha'],               # Eje X: fechas.
+    data['Ventas Acumuladas'],   # Eje Y: ventas acumuladas.
+    marker='o',                  # Marcador en cada punto ('o' para círculo).
+    linestyle='-',               # Estilo de la línea.
+    linewidth=2,                 # Grosor de la línea.
+    color='teal',                # Color de la línea.
+    markerfacecolor='orange',    # Color de relleno de los marcadores.
+    markeredgecolor='black',     # Color del borde de los marcadores.
+    markersize=8,                # Tamaño de los marcadores.
+    label='Ventas Acumuladas',   # Etiqueta para la leyenda.
+    alpha=0.8                    # Transparencia de la línea.
+)
+
+# Configurar el título del gráfico.
+plt.title(
+    'Suma Acumulada de Ventas Mensuales',  # Texto del título.
+    fontsize=16,                          # Tamaño de fuente.
+    fontweight='bold',                    # Grosor de la fuente.
+    color='darkblue'                      # Color del texto.
+)
+
+# Etiqueta del eje X.
+plt.xlabel(
+    'Fecha',              # Texto de la etiqueta.
+    fontsize=12,          # Tamaño de fuente.
+    fontstyle='italic',   # Estilo de la fuente.
+    color='darkgreen'     # Color del texto.
+)
+
+# Etiqueta del eje Y.
+plt.ylabel(
+    'Ventas Acumuladas',  # Texto de la etiqueta.
+    fontsize=12,          # Tamaño de fuente.
+    fontstyle='italic',   # Estilo de la fuente.
+    color='darkgreen'     # Color del texto.
+)
+
+# Rotar las etiquetas del eje X.
+plt.xticks(
+    rotation=45,          # Rotación de las etiquetas.
+    fontsize=10,          # Tamaño de fuente.
+    color='gray'          # Color de las etiquetas.
+)
+
+# Personalizar las marcas (ticks) del eje Y.
+plt.yticks(
+    fontsize=10,          # Tamaño de fuente.
+    color='gray'          # Color de las etiquetas.
+)
+
+# Agregar una cuadrícula al gráfico.
+plt.grid(
+    True,                 # Mostrar la cuadrícula.
+    linestyle='--',       # Estilo de la línea de la cuadrícula.
+    linewidth=0.5,        # Grosor de las líneas de la cuadrícula.
+    alpha=0.7             # Transparencia de la cuadrícula.
+)
+
+# Mostrar una leyenda en el gráfico.
+plt.legend(
+    loc='upper left',     # Posición de la leyenda.
+    fontsize=10,          # Tamaño de fuente de la leyenda.
+    frameon=True,         # Mostrar un marco alrededor de la leyenda.
+    shadow=True,          # Agregar sombra al marco.
+    facecolor='lightyellow',  # Color de fondo del marco.
+    edgecolor='black'     # Color del borde del marco.
+)
+
+# Ajustar los márgenes alrededor del gráfico.
+plt.tight_layout()
+
+# Mostrar el gráfico final.
+plt.show()
+```
+![MPL14](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL14.png)
+
+##
+
+
+
+```py
+```
+
+```py
+```
+
+```py
+```
+
+```py
 ```

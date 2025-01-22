@@ -6,7 +6,6 @@
 - [Busqueda de relaciones de Valores Faltantes](#busqueda-de-relaciones-de-valores-faltantes-menú)
 - [Tratamiento de Valores Faltantes](#tratamiento-de-valores-faltantes-menú)
 
-
 ## Introducción [Menú](#missing-data-strategies)
 ### Operaciones con valores faltantes [Menú](#missing-data-strategies)
 Los datos faltantes puede determinar resultados erroneos en cualquier análisis planteado. Por lo cual aprender a tratar los datos faltantes o determinar si son necesarios o no, es importante en cada análisis de datos.
@@ -189,8 +188,7 @@ riskfactors_df.isna()
 - [kaggle-Dataset](https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database)
 - [naniar](https://github.com/njtierney/naniar)
 - [R](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html)
-
-
+### 
 
 
 ## Manipulación inicial de Valores Faltantes [Menú](#missing-data-strategies)

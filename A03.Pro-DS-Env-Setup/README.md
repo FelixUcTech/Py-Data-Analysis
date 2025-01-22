@@ -122,7 +122,6 @@ Siguiendo el ejemplo el el punto anterior la carpeta definida como [Creación de
 ### Hooks [Menú](#pro-ds-env-setup-professional-data-science-environment-setup)
 Los hooks o también llamados ganchos, es una herramienta qué puede aplir las capacidades de cookiecutter, estos se ejecutan antes o después de generar la plantilla de datos.
 
-
 ## Manjeo de archivos en Python [Menú](#pro-ds-env-setup-professional-data-science-environment-setup)
 
 ## Ejemplo Práctico [Menú](#pro-ds-env-setup-professional-data-science-environment-setup)
