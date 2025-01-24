@@ -22,6 +22,8 @@
     - [Gráficos de Barras y Diagramas de Pastel](#gráficos-de-barras-y-diagramas-de-pastel-menú)
     - [Histograma y Boxplot](#histograma-y-boxplot-menú)
     - [Series de tiempo y fechas](#series-de-tiempo-y-fechas-menú)
+    - [Layouts Avanzados](#layouts-avanzados-menú)
+- [Proyecto personal](#proyecto-personal-menú)
     
 
 ## Introducción
@@ -58,7 +60,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 ```
-
 ## NumPy [(Menú)](#python-para-ciencia-de-datos)
 ### Intro Numpy 
 NumPy nos permite realizar operaciones matemáticas y estadísitcas de alto rendimiento
@@ -374,7 +375,6 @@ desviacion_simulada = np.std(datos_simulados)
 print("Media de los datos simulados:", media_simulada)
 print("Desviación estándar de los datos simulados:", desviacion_simulada)
 ```
-
 ## Pandas [(Menú)](#python-para-ciencia-de-datos)
 ### Intro Pandas
 https://pandas.pydata.org/docs/user_guide/
@@ -808,7 +808,6 @@ data['month'] = data.index.month
 print("\nDataFrame con columna adicional del mes:")
 print(data)
 ```
-
 ## Matplotlib [(Menú)](#python-para-ciencia-de-datos)
 ### Intro Matplotlib [(Menú)](#python-para-ciencia-de-datos)
 Nos permite visualizar los datos de manera efectiva, esta biblioteca fue creada por John Hunter, en 2003,
@@ -1399,13 +1398,72 @@ plt.tight_layout()
 plt.show()
 ```
 ![MPL14](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL14.png)
-
-##
-
-
+### Layouts Avanzados [(Menú)](#python-para-ciencia-de-datos)
+GridSpec es una clase de Matplotlib que permite personalizar y organizar diseños complejos de subgráficos en una cuadrícula flexible. Proporciona control detallado sobre la posición y el tamaño relativo de cada subgráfico dentro de la figura, definiendo filas, columnas y espacios intermedios. Es especialmente útil cuando se necesitan configuraciones no uniformes o cuando se deben ajustar subgráficos a diferentes proporciones o tamaños específicos.
 
 ```py
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
+import numpy as np
+
+# Crear datos para los gráficos
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
+z = np.cos(x)
+data = np.random.randn(1000)
+
+# Configurar el layout con GridSpec
+fig = plt.figure(figsize=(12, 8))  # Tamaño de la figura
+gs = GridSpec(3, 3, figure=fig)    # Crear una cuadrícula de 3x3
+
+# Gráfico 1: Línea (ocupa la primera fila completa)
+ax1 = fig.add_subplot(gs[0, :])  # Primera fila, todas las columnas
+ax1.plot(x, y, label='Seno', color='blue')
+ax1.plot(x, z, label='Coseno', color='red', linestyle='--')
+ax1.set_title('Gráfico de Líneas')
+ax1.legend()
+ax1.grid(True)
+
+# Gráfico 2: Dispersión (scatter) (en la segunda fila, primera columna)
+ax2 = fig.add_subplot(gs[1, 0])  # Segunda fila, primera columna
+ax2.scatter(x, y, c='green', alpha=0.7, edgecolor='black')
+ax2.set_title('Gráfico de Dispersión')
+ax2.set_xlabel('Eje X')
+ax2.set_ylabel('Eje Y')
+
+# Gráfico 3: Histograma (en la segunda fila, segunda columna)
+ax3 = fig.add_subplot(gs[1, 1])  # Segunda fila, segunda columna
+ax3.hist(data, bins=20, color='purple', alpha=0.7)
+ax3.set_title('Histograma')
+ax3.set_xlabel('Valores')
+ax3.set_ylabel('Frecuencia')
+
+# Gráfico 4: Barras (en la segunda fila, tercera columna)
+categorias = ['A', 'B', 'C', 'D']
+valores = [5, 7, 3, 8]
+ax4 = fig.add_subplot(gs[1, 2])  # Segunda fila, tercera columna
+ax4.bar(categorias, valores, color='orange', alpha=0.9)
+ax4.set_title('Gráfico de Barras')
+ax4.set_xlabel('Categorías')
+ax4.set_ylabel('Valores')
+
+# Gráfico 5: Mapa de calor (en la tercera fila, ocupa toda la fila)
+matriz = np.random.rand(10, 10)
+ax5 = fig.add_subplot(gs[2, :])  # Tercera fila, todas las columnas
+heatmap = ax5.imshow(matriz, cmap='coolwarm', aspect='auto')
+ax5.set_title('Mapa de Calor')
+fig.colorbar(heatmap, ax=ax5, orientation='horizontal', pad=0.2)
+
+# Ajustar el espacio entre subgráficos
+plt.tight_layout()
+
+# Mostrar la figura final
+plt.show()
 ```
+![MTL15](/A01.PyDS/A01.PyDS-Imagenes/EjemploMPL15.png)
+## Proyecto personal [Menú](#python-para-ciencia-de-datos)
+
+
 
 ```py
 ```
