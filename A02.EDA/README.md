@@ -67,12 +67,50 @@ Estás estapas no son independientes una de la otra, es más, son dependientes u
 Por lo general tenemos a encontrar en el campo laboral, análisis multivariado, pero dentro de análisis complejos donde todas las varibles se relacionan es bueno realizar análisis univaridos, parapasar al bivariado, y entender como las varibles van aportando a cada determinada etapa del procesamiento de la información. Y así llegar a un análisis exploratorio de datos que cumpla y pueda dar una respuesta congruente con los datos.
 ### Herramientas en el análisis exploratorio de datos [Menú](#análisis-exploratorio-de-datos)
 **Ejemplos**
+
 ![Tools](/A02.EDA/A02.EDA-Imagenes/tools.png)
 
-Al final esta estructura definida va a guardar la estructura que se defina y también los errores, por lo cual es bueno ser cuidadoso con dicha estructura y definiciones.
+Al final la herramienta no es tan importante como los resultados que entregues con ella. Multiples herramientas están diseñadas para lenguajes o funciones particulaes, nuestra necesidad presede a la herramienta, por lo qué es importante buscar las herramientas que mejor se adapten a nuestras necesidades, y de ser posible probar más de una.
+
+**Algunos ejemplos de herramientas son**
+- [anaconda](https://www.anaconda.com/)
+- [sagemaker](https://aws.amazon.com/es/pm/sagemaker/)
+- [deepnote](https://deepnote.com/)
+- [colab](https://colab.research.google.com/)
+- [jupyter](https://jupyter.org/)
+
+**Material de estudio**
+- [Deepnote](Curso-EDA-Communication-c92bae1e-ca3b-47c5-b028-6a9a99949ed3)
+### Conjutno de Datos [Menú](#análisis-exploratorio-de-datos)
+
+![Preliminar-imagen](/A02.EDA/A02.EDA-Imagenes/Pre-001.png)
+
+Cuando utilizamos datos qué alguien más ya recolecto la estrategía principal es buscar integrarlo al flujo de trabajo principal.
+
+- [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/)
+- [Palmer Station](https://pallter.marine.rutgers.edu/)
+- [Datos](https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/inst/extdata/penguins.csv)
+
+- [Entorno de Práctica](https://deepnote.com/app/felixuctech/Curso-EDA-Communication-Duplicate-f6a288f2-b3d9-4fdc-8529-57c8c878547e?utm_content=f6a288f2-b3d9-4fdc-8529-57c8c878547e)
+
+Normalmente como se muestra en el material de estudio, se debe definir qué son los datos crudos y que son los datos procesados, un punto importante es el procesamiento de datos que puede ser responsabildiad del ingeniero de datos o a su vez del analista por la calidad de la fuente que tenga, pero trabajando con datos procesados se plantea un analisis exploratorio desde el momento que se define así a la base de datos.
+### Recolección de datos, limpieza y validación  [Menú](#análisis-exploratorio-de-datos)
+
+![Preliminar-imagen](/A02.EDA/A02.EDA-Imagenes/Pre-002.png)
+
+Entre más alejado el nivel de datos, el efoque de la adquisición de los datos puede que no sea 100% el requerido para nuestro análisis. Es decir, directamente no está asociado directamente a un problema de negocio en particular.
+
+**¿Qué es la validación de datos?**
+
+![Preliminar-imagen](/A02.EDA/A02.EDA-Imagenes/Pre-003.png)
+
+**¿Qué se debe validar para asegurar consistencia?**
+
+![Preliminar-imagen](/A02.EDA/A02.EDA-Imagenes/Pre-004.png)
+### Validación
 
 
-## Análisis Univariado
+## Análisis Univariado 
 
 ## Análisis Bivariado
 
@@ -81,3 +119,57 @@ Al final esta estructura definida va a guardar la estructura que se defina y tam
 
 
 
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
