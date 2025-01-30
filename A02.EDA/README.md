@@ -1,4 +1,5 @@
 # Análisis Exploratorio de Datos
+- [Herrami](Herramientas y Tecnologías Utilizadas)
 - [Preliminares](#preliminares-menú)
     - [Intro](#intro-menú)
     - [¿Qué razones tenemos para comenzar un análisis exploratorio de datos?](#qué-razones-tenemos-para-comenzar-un-análisis-exploratorio-de-datos)
@@ -12,6 +13,23 @@
     - [Variable Categórica: Conteos y proporciones](#variable-categórica-conteos-y-proporciones-menú)
     - [Medidas de tendencia central](#medidas-de-tendencia-central-menú)
     - [Medidas de dispersión](#medidas-de-dispersión-menú)
+    - [Estadística descriptiva aplicada: distribuciones](#estadística-descriptiva-aplicada-distribuciones-menú)
+
+## Herramientas y Tecnologías Utilizadas [Menú](#análisis-exploratorio-de-datos)
+
+### **Bibliotecas de Python**
+- Seaborn
+- Pandas
+- EmpiricalDist
+
+### **Entornos de Desarrollo**
+- Deepnote
+- Visual Studio Code
+
+### **Herramientas de Terminal y Sistemas**
+- Terminal de Ubuntu
+
+
 
 
 ## Preliminares [Menú](#análisis-exploratorio-de-datos)
@@ -357,6 +375,7 @@ Donde:
 - \(\mu\) es la media del conjunto de datos,
 - \(n\) es el número total de datos.
 
+
 ![AU](/A02.EDA/A02.EDA-Imagenes/AU005.png)
 
 ![AU](/A02.EDA/A02.EDA-Imagenes/AU006.png)
@@ -383,24 +402,185 @@ processed_penguins_df.max(numeric_only=True) - processed_penguins_df.min(numeric
 
 **Desviación estandar**
 ```py
-
+#Desviación estandar
+processed_penguins_df.std()
 ```
 
+**Rango Intercuartílico; ¿Para qué sirve el rango intercuartílico (IQR)?**
+
+El rango intercuartílico (IQR) es útil porque mide la dispersión de los datos **centrales** (50% de los valores) y **reduce el impacto de los valores atípicos** (outliers). A diferencia del rango general, el IQR no considera los valores extremos, lo que lo hace una medida más robusta para analizar la variabilidad en los datos.
+ Usos principales:
+1. **Identificar valores atípicos (outliers):**  
+   Se pueden detectar outliers considerando los valores que caen fuera de los límites:
+   $$
+   \text{Límite inferior} = Q1 - 1.5 \cdot \text{IQR}
+   $$
+   $$
+   \text{Límite superior} = Q3 + 1.5 \cdot \text{IQR}
+   $$  
+   Los datos fuera de este rango se consideran atípicos.
+
+2. **Comparar dispersión entre conjuntos de datos:**  
+   El IQR permite evaluar la variabilidad de los datos centrales en diferentes distribuciones sin que los valores extremos distorsionen la comparación.
+
+3. **Análisis de datos asimétricos:**  
+   Como el IQR no depende de supuestos de normalidad, es adecuado para datos que no siguen una distribución normal.
+
+4. **Medición de estabilidad o consistencia:**  
+   Si el IQR es pequeño, indica que los datos centrales son más consistentes y están menos dispersos.
+
+En resumen, el IQR es una herramienta clave para explorar la **variabilidad central de los datos** de forma confiable, especialmente en presencia de valores extremos.
+
+**Criterio matemático del rango intercuartílico para detectar y excluir valores atípicos**
+
+El rango intercuartílico (IQR) utiliza un **criterio basado en los límites superior e inferior** que se calculan añadiendo o restando un múltiplo del IQR a los cuartiles \( Q1 \) (primer cuartil) y \( Q3 \) (tercer cuartil). El criterio más común para identificar valores atípicos es el de **1.5 veces el IQR**. Los valores que caen fuera de estos límites se consideran atípicos.
+ Fórmulas para los límites:
+1. **Límite inferior:**
+   $$
+   \text{Límite inferior} = Q1 - 1.5 \cdot \text{IQR}
+   $$
+
+2. **Límite superior:**
+   $$
+   \text{Límite superior} = Q3 + 1.5 \cdot \text{IQR}
+   $$
+ Interpretación:
+- Los valores que están **por debajo del límite inferior** o **por encima del límite superior** se consideran **valores atípicos** o **outliers**.
+- Este criterio asegura que los datos dentro de los límites contienen aproximadamente el **99.3% de los valores** si los datos siguen una distribución normal, ya que \( \pm 1.5 \cdot \text{IQR} \) abarca la mayor parte de los datos centrales.
+
+Razón detrás de este criterio:
+El factor 1.5 está diseñado para ser lo suficientemente amplio como para incluir la mayoría de los datos típicos, pero al mismo tiempo lo suficientemente estricto como para detectar valores que se desvíen considerablemente del rango central. Este enfoque es robusto porque no depende de la media ni de la desviación estándar, que pueden ser influenciadas por valores extremos.
+
+Si un análisis requiere mayor sensibilidad, el factor puede ajustarse, por ejemplo, usando:
+
+$$
+3.0 \cdot \text{IQR}
+$$
+
+para detectar valores extremadamente atípicos.
+
+**Cálculando el rango intercuartílico**
+```py
+#Lo cálcula para todos los valores númericos de dataframe
+print(processed_penguins_df.quantile(0.75))
+
+print(processed_penguins_df.quantile(0.75)-processed_penguins_df.quantile(0.25))
+```
+
+**Todos los cuartiles**
+```py
+(
+    processed_penguins_df
+    .quantile(q=[0.75.0.5,0.25])
+    .transpose() #Mostrar cuartiles en las columnas de la tabla
+    .rename_axis('Varibles')#Columna 1
+    .reset_index()
+    .assign(
+        iqr=lambda df: df[0.75] - df[0.25]
+    )
+)
+```
+
+**¿Cómo visualizar la distribución de una varible?**
+```py
+# Asumimos que 'processed_penguins_df' es el DataFrame con los datos procesados.
+
+# Crear una figura con 3 subgráficas (1 fila, 3 columnas)
+fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+
+# Especificar las especies
+species = processed_penguins_df['species'].unique()
+
+# Para cada especie, graficar un histograma separado
+for i, sp in enumerate(species):
+    # Filtrar los datos para cada especie
+    species_data = processed_penguins_df[processed_penguins_df['species'] == sp]
+    
+    # Graficar el histograma
+    sns.histplot(
+        data=species_data,
+        x='flipper_length_mm',
+        kde=True,  # Para agregar una curva KDE si lo deseas
+        ax=axes[i],
+        color=sns.color_palette("Set1")[i],  # Colores diferentes para cada especie
+        #bins=35
+    )
+
+    # Añadir líneas de referencia
+    axes[i].axvline(
+        x=species_data['flipper_length_mm'].mean(),
+        color='red',
+        linestyle='dashed',
+        linewidth=2,
+        label='Mean'
+    )
+    axes[i].axvline(
+        x=species_data['flipper_length_mm'].median(),
+        color='blue',
+        linestyle='dashed',
+        linewidth=2,
+        label='Median'
+    )
+    axes[i].axvline(
+        x=species_data['flipper_length_mm'].mode().values[0],
+        color='black',
+        linestyle='dashed',
+        linewidth=4,
+        label='Mode'
+    )
+    axes[i].axvline(
+        x=species_data['flipper_length_mm'].quantile(0.25),
+        color='yellow',
+        linestyle='dashed',
+        linewidth=2,
+        label='25th Percentile'
+    )
+    axes[i].axvline(
+        x=species_data['flipper_length_mm'].quantile(0.75),
+        color='yellow',
+        linestyle='dashed',
+        linewidth=2,
+        label='75th Percentile'
+    )
+    
+    # Títulos y etiquetas
+    axes[i].set_title(f"Species: {sp}")
+    axes[i].set_xlabel('Flipper Length (mm)')
+    axes[i].set_ylabel('Frequency')
+    axes[i].legend()
+
+# Ajustar el espacio entre subgráficas
+plt.tight_layout()
+plt.show()
+```
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU009.png)
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU010.png)
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU011.png)
+### Estadística descriptiva aplicada: distribuciones [Menú](#análisis-exploratorio-de-datos)
+**Función de probabilidad de masa (PMF)**  
+Es una función que asigna una probabilidad a cada valor posible de una variable discreta. La probabilidad de que la variable tome un valor específico es dada por esta función:  
+$$ P(X = x) = p(x) $$
+
+**Función de distribución acumulada (CDF)**  
+Es una función que describe la probabilidad de que una variable aleatoria tome un valor menor o igual a un valor específico. Se calcula sumando las probabilidades de todos los valores anteriores de la variable aleatoria:  
+$$ F(x) = P(X \leq x) = \sum_{i=-\infty}^{x} P(X = i) $$
+
+**Función de probabilidad de densidad (PDF)**  
+Es una función que describe la probabilidad de que una variable aleatoria continua tome un valor dentro de un rango específico. La probabilidad exacta de que la variable tome un valor específico es cero, pero el área bajo la curva de la función en un intervalo da la probabilidad de que la variable esté en ese intervalo:  
+$$ P(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx $$ 
+### Funciones de densidad de probabilidad
 
 
 ## Análisis Bivariado
-|
+
 ## Análisis multivariado
 
-```py
 
-```
-```py
 
-```
-```py
 
-```
 ```py
 
 ```
