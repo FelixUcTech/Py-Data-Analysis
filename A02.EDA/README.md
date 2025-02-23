@@ -22,6 +22,8 @@
     - [Análisis de regresión simple](#análisis-de-regresión-simple-menú)
 - [Análisis multivariado](#análisis-multivariado-menú)
     - [Regresión multiple](#regresión-multiple-menú)
+    - [Regresión logística](#regresión-logística-menú)
+    - [¿Qué hacer cuando tenemos muchas varibles?](#qué-hacer-cuando-tenemos-muchas-varibles-menú)
 
 ## Herramientas y Tecnologías Utilizadas [Menú](#análisis-exploratorio-de-datos)
 
@@ -939,505 +941,139 @@ En este ejemplo:
 - `model.summary()` muestra estadísticas del modelo, incluyendo coeficientes y significancia.
 
 Este método es útil para clasificación binaria, evaluación de riesgos y toma de decisiones en modelos predictivos.
-
-
-
-### 
-### 
-### 
-
-
-
-
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
+### Regresión logística [Menú](#análisis-exploratorio-de-datos)
+
+Explicación:
+
+- Se generan datos aleatorios con dos características (`X1`, `X2`) y una etiqueta binaria `y`.
+- Se dividen los datos en entrenamiento (80%) y prueba (20%).
+- Se normalizan las características usando `StandardScaler` para mejorar el rendimiento del modelo.
+- Se entrena un modelo de regresión logística con `LogisticRegression()` de `sklearn`.
+- Se realizan predicciones en el conjunto de prueba.
+- Se evalúa el modelo con `accuracy_score`, `confusion_matrix` y `classification_report`.
+- Finalmente, se visualizan los datos en un gráfico de dispersión con colores para cada clase.
+
 ```py
+
+# Importar bibliotecas necesarias
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
+# Generar datos de ejemplo
+np.random.seed(42)
+n_samples = 1000
+X1 = np.random.normal(2, 1, n_samples)
+X2 = np.random.normal(-2, 1, n_samples)
+y = (X1 + X2 > 0).astype(int)  # Etiqueta binaria
 
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
-
-```
-```py
+# Convertir los datos en un DataFrame
+df = pd.DataFrame({'X1': X1, 'X2': X2, 'y': y})
 
-```
-```py
+# Dividir en conjuntos de entrenamiento y prueba
+X = df[['X1', 'X2']]
+y = df['y']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-```
-```py
+# Estandarizar los datos
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
-```
-```py
+# Crear y entrenar el modelo de regresión logística
+model = LogisticRegression()
+model.fit(X_train_scaled, y_train)
 
-```
-```py
+# Hacer predicciones
+y_pred = model.predict(X_test_scaled)
 
-```
-```py
+# Evaluar el modelo
+accuracy = accuracy_score(y_test, y_pred)
+conf_matrix = confusion_matrix(y_test, y_pred)
+report = classification_report(y_test, y_pred)
 
-```
-```py
+# Mostrar resultados
+print(f'Accuracy: {accuracy:.2f}')
+print('Confusion Matrix:')
+print(conf_matrix)
+print('Classification Report:')
+print(report)
 
+# Visualizar los datos
+plt.scatter(df['X1'], df['X2'], c=df['y'], cmap='bwr', alpha=0.5)
+plt.xlabel('X1')
+plt.ylabel('X2')
+plt.title('Datos de Clasificación Binaria')
+plt.show()
 ```
-```py
+### Paradoja de Simpson [Menú](#análisis-exploratorio-de-datos)
+**La paradoja de Simpson** es un fenómeno estadístico en el que una tendencia observada en varios grupos desaparece o se invierte cuando los datos se combinan en un solo grupo. Esto ocurre debido a la influencia de una variable oculta o de confusión.
 
-```
-```py
+**Ejemplo en Python**
 
-```
-```py
+```python
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-```
-```py
+# Crear datos de ejemplo
+data = pd.DataFrame({
+    'Grupo': ['A']*5 + ['B']*5,
+    'Tratamiento': ['Sí', 'No', 'Sí', 'No', 'Sí', 'Sí', 'No', 'Sí', 'No', 'No'],
+    'Éxito': [80, 90, 85, 88, 75, 30, 40, 35, 38, 32],
+    'Total': [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+})
 
-```
-```py
+# Calcular tasas de éxito por grupo
+data['Tasa de Éxito'] = data['Éxito'] / data['Total']
 
+# Graficar los resultados
+plt.figure(figsize=(8,5))
+sns.barplot(x='Grupo', y='Tasa de Éxito', hue='Tratamiento', data=data)
+plt.title('Ejemplo de la Paradoja de Simpson')
+plt.ylabel('Tasa de Éxito')
+plt.show()
 ```
-```py
+**Ejemplo visual**
 
-```
-```py
+![AM](/A02.EDA/A02.EDA-Imagenes/AM001.png)
 
-```
-```py
+![AM](/A02.EDA/A02.EDA-Imagenes/AM002.png)
 
-```
-```py
+La paradoja de Simpson es un fenómeno estadístico donde una tendencia observada en múltiples grupos desaparece o se revierte cuando los datos se combinan, debido a la influencia de una variable oculta o de confusión. Esto ocurre porque la distribución de los datos en cada grupo puede afectar la interpretación global, llevando a conclusiones engañosas si no se analizan las relaciones dentro de los subgrupos.
+### ¿Qué hacer cuando tenemos muchas varibles? [Menú](#análisis-exploratorio-de-datos)
 
-```
-```py
+Cuando tenemos muchas variables en un problema de programación, es fundamental aplicar técnicas de reducción de la dimensionalidad y selección de características para optimizar el rendimiento del modelo o la eficiencia del código. Podemos comenzar analizando la correlación entre variables para eliminar redundancias, usar métodos como PCA (Análisis de Componentes Principales) para transformar los datos en un espacio más compacto o aplicar algoritmos de selección como eliminación recursiva de características (RFE) y Lasso para identificar las más relevantes. Además, en problemas de machine learning, técnicas como ingeniería de características y regularización ayudan a mejorar la interpretabilidad y reducir el sobreajuste. En términos de programación estructurada, una estrategia efectiva es modularizar el código, encapsular variables en estructuras adecuadas (como diccionarios o clases) y usar nombres descriptivos para facilitar su gestión y mantenimiento.
 
-```
-```py
+![AM](/A02.EDA/A02.EDA-Imagenes/AM003.png)
 
-```
-```py
+[Referencia](https://pmc.ncbi.nlm.nih.gov/articles/PMC2735096/)
 
-```
-```py
+t-SNE (t-Distributed Stochastic Neighbor Embedding) es una técnica de reducción de dimensionalidad no lineal utilizada para visualizar datos de alta dimensión en espacios de 2D o 3D, preservando la estructura local de los datos. A diferencia de métodos lineales como PCA, t-SNE convierte las distancias entre puntos en probabilidades y minimiza la diferencia entre distribuciones de similitud en el espacio original y reducido, lo que permite agrupar datos similares de manera más intuitiva. Aunque es útil para exploración de datos y clustering visual, puede ser computacionalmente costoso y sufre de hiperparámetros sensibles, como la "perplejidad", que afecta la distribución de los puntos en el espacio reducido.
 
-```
-```py
+![AM](/A02.EDA/A02.EDA-Imagenes/AM004.png)
 
-```
-```py
+UMAP (Uniform Manifold Approximation and Projection) es una técnica de reducción de dimensionalidad que preserva tanto la estructura global como local de los datos de alta dimensión, siendo más rápida y escalable que t-SNE. Se basa en principios matemáticos de teoría de grafos y aprendizaje topológico, construyendo un gráfico de vecinos en el espacio original y luego optimizándolo en el espacio reducido para mantener relaciones importantes entre los puntos. UMAP es ampliamente usado en la exploración y visualización de datos, especialmente en machine learning y bioinformática, y es menos sensible a hiperparámetros en comparación con t-SNE, lo que lo hace una opción más eficiente para conjuntos de datos grandes.
 
-```
-```py
+![AM](/A02.EDA/A02.EDA-Imagenes/AM005.png)
 
-```
-```py
+[Referencia](https://arxiv.org/pdf/1802.03426)
 
-```
-```py
+## Recomendación final [Menú](#análisis-exploratorio-de-datos)
+**¿Qué quiero mostrar?**
 
-```
-```py
+![RF](/A02.EDA/A02.EDA-Imagenes/RF001.png)
 
-```
-```py
+![RF](/A02.EDA/A02.EDA-Imagenes/RF002.png)
 
-```
-```py
+La exploración de datos es hacerte preguntas.
 
-```
-```py
+![RF](/A02.EDA/A02.EDA-Imagenes/RF003.png)
 
-```
-```py
+![RF](/A02.EDA/A02.EDA-Imagenes/RF004.png)
 
-```
+![RF](/A02.EDA/A02.EDA-Imagenes/RF005.png)
