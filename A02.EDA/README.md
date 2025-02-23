@@ -14,6 +14,14 @@
     - [Medidas de tendencia central](#medidas-de-tendencia-central-menú)
     - [Medidas de dispersión](#medidas-de-dispersión-menú)
     - [Estadística descriptiva aplicada: distribuciones](#estadística-descriptiva-aplicada-distribuciones-menú)
+    - [Teorema del límite central](#teorema-del-límite-central-menú)
+- [Análisis Bivariado](#análisis-univariado-menú)
+    - [Establecer relaciones](#establecer-relaciones-menú)
+    - [Gráficos de violín y boxplots](#gráficos-de-violín-y-boxplots-menú)
+    - [Matrices de correlación](#matrices-de-correlación-menú)
+    - [Análisis de regresión simple](#análisis-de-regresión-simple-menú)
+- [Análisis multivariado](#análisis-multivariado-menú)
+    - [Regresión multiple](#regresión-multiple-menú)
 
 ## Herramientas y Tecnologías Utilizadas [Menú](#análisis-exploratorio-de-datos)
 
@@ -39,6 +47,7 @@
 
 ![EDA](/A02.EDA/A02.EDA-Imagenes/EDA.png)
 ### ¿Qué razones tenemos para comenzar un análisis exploratorio de datos?
+
 ![EDA?](/A02.EDA/A02.EDA-Imagenes/ComoHacerUnEDA.png)
 
 **Motivos**
@@ -66,10 +75,13 @@
 5. Establecer las relaciones entre los conjuntos de datos, qué pasa si un relación definida es efectada o no por las otras varibles de mi conjunto de datos. ¿Qué significa qué las observaciones se agrupen?¿qué significa el patrón que se observa?
 
 **ESTO PUEDE LLEGAR A SER UN CICLO INFITO**
+
 ![5P](/A02.EDA/A02.EDA-Imagenes/5pasos-2.png)
 
 **PERO COMO ANÁLISTA ESTO DEBE TERMINAR EN ALGÚN MOMENTO PARA ENTREGAR VALOR AL CLIENTE**
+
 ![5P](/A02.EDA/A02.EDA-Imagenes/5pasos-3.png)
+
 ### Tipos de análisis de datos [Menú](#análisis-exploratorio-de-datos)
 Sin importar qué tus datos sean muy pequeños o muy bastos, los tipos de análitica que puedes hacer son las siguientes:
 
@@ -84,9 +96,11 @@ Estás estapas no son independientes una de la otra, es más, son dependientes u
 ![TDA1](/A02.EDA/A02.EDA-Imagenes/TiposDA3.png)
 ### Tipos de datos y análisis de variables [Menú](#análisis-exploratorio-de-datos)
 **¿Qué tipo de datos y cómo clasificarlos?**
+
 ![Tipo De Datos](/A02.EDA/A02.EDA-Imagenes/TipoDeDatos.png)
 
 **¿Qué tipo de análisis puedes realizar sobre tus datos?**
+
 ![Tipo De Analisis](/A02.EDA/A02.EDA-Imagenes/tipodeanalisis.png)
 
 Por lo general tenemos a encontrar en el campo laboral, análisis multivariado, pero dentro de análisis complejos donde todas las varibles se relacionan es bueno realizar análisis univaridos, parapasar al bivariado, y entender como las varibles van aportando a cada determinada etapa del procesamiento de la información. Y así llegar a un análisis exploratorio de datos que cumpla y pueda dar una respuesta congruente con los datos.
@@ -572,15 +586,819 @@ $$ F(x) = P(X \leq x) = \sum_{i=-\infty}^{x} P(X = i) $$
 Es una función que describe la probabilidad de que una variable aleatoria continua tome un valor dentro de un rango específico. La probabilidad exacta de que la variable tome un valor específico es cero, pero el área bajo la curva de la función en un intervalo da la probabilidad de que la variable esté en ese intervalo:  
 $$ P(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx $$ 
 ### Funciones de densidad de probabilidad
+Dentro de un conjunto de datos qué tenemos, podemos ver mediante la función **Kdeplot** de **seaborn**, una forma continua de una representación de la probabilidad de existencia de un dato en específico en relación al conjunto de datos dado. Algo importante que resaltar es que cada función de cada librería, tiene muchos parámetros que nos pueden ayudar a optener el resultado más próximo a nuestra necesidad, ejemplo es un una constante dentro del método de kdplot, dentro del método se tiene **bw_method** esta constante nos ayuda a que la función se pueda aproxima mejor a la probabilidad de nuestro conjunto de datos.
 
 
-## Análisis Bivariado
+```py
+sns.kdeplot(
+    data=processed_penguind_df,
+    x="Tamaño de la aleta en mm"
+    bw_method=0.1
+)
+```
+### Teorema del límite central [Menú](#análisis-exploratorio-de-datos)
+El Teorema del Límite Central establece que, dada una muestra suficientemente grande de variables aleatorias independientes e idénticamente distribuidas, su media muestral seguirá una distribución aproximadamente normal, independientemente de la distribución original de los datos. 
 
-## Análisis multivariado
+Formalmente, si X₁, X₂, ..., Xₙ son variables aleatorias independientes con media μ y varianza finita σ², entonces la distribución de la media muestral:
+
+$$(X̄ - μ) / (σ / √n)$$
+
+se aproxima a una distribución normal estándar (media 0 y varianza 1) cuando n → ∞. 
+
+Este resultado es fundamental en estadística porque permite aplicar métodos inferenciales basados en la normalidad, incluso cuando la distribución original de los datos no es normal.
+
+**Un ejemplo gráfico de la ley de los grandes números** Un dado con una densidad homogenea en todas las caras de su forma. 
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU012.png)
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU013.png)
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU014.png)
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU015.png)
+
+![AU](/A02.EDA/A02.EDA-Imagenes/AU016.png)
+
+[Teorema del ímite central](https://www.youtube.com/watch?v=s6w-Z9SyAlA&ab_channel=CodigoMaquina), mejor ejemplificación.
+
+## Análisis Bivariado [Menú](#análisis-exploratorio-de-datos)
+### Establecer relaciones [Menú](#análisis-exploratorio-de-datos)
+Una representación de dos varibles puede llegar a ser muy interesante en función de número de datos, para ello es importante saber como representarlo.
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB001.png)
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB002.png)
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB003.png)
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB004.png)
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB005.png)
+
+Ejemplo de formas de representación de dos varibles, en este caso son dos varibles con una tercer varible categorica para una obervación más intuitiva.
+
+```py
+sns.jointplot(  data=processed_penguins_df,
+                x='bill_length_mm',
+                y='bill_depth_mm',
+                palette=penguin_color,
+                hue='species'
+            )
+```
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB006.png)
+### Gráficos de violín y boxplots [Menú](#análisis-exploratorio-de-datos)
+```py
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 6))
+
+sex_colour = {'Male': '#ADD8E6', 'Female': '#FFC0CB'}  # Azul claro y rosa claro
+
+
+sns.violinplot(
+    data=processed_penguins_df,
+    x='island',
+    y='body_mass_g',
+    ax=ax1
+)
+
+sns.swarmplot(
+    data=processed_penguins_df,
+    x='island',
+    y='body_mass_g',
+    hue='sex',
+    palette=sex_colour,
+    ax=ax1
+)
+
+ax1.set_title('Violin Plot and Swarm Plot')
+
+sns.boxplot(
+    data=processed_penguins_df,
+    x='island',
+    y='body_mass_g',
+    hue='sex',
+    palette=sex_colour,
+    ax=ax2
+)
+
+ax2.set_title('Box Plot')
+
+# Ajustar el diseño de la figura
+plt.tight_layout()
+
+plt.show()
+
+```
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB008.png)
+
+```py
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 6))
+
+sex_colour = {'Male': '#ADD8E6', 'Female': '#FFC0CB'}  # Azul claro y rosa claro
+
+
+sns.violinplot(
+    data=processed_penguins_df,
+    x='island',
+    y='body_mass_g',
+    ax=ax1
+)
+
+sns.swarmplot(
+    data=processed_penguins_df,
+    x='island',
+    y='body_mass_g',
+    hue='sex',
+    palette=sex_colour,
+    ax=ax1
+)
+
+ax1.set_title('Violin Plot and Swarm Plot')
+
+sns.boxplot(
+    data=processed_penguins_df,
+    x='island',
+    y='body_mass_g',
+    hue='sex',
+    palette=sex_colour,
+    ax=ax2
+)
+
+ax2.set_title('Box Plot')
+
+# Ajustar el diseño de la figura
+plt.tight_layout()
+
+plt.show()
+```
+![AB](/A02.EDA/A02.EDA-Imagenes/AB009.png)
+### Matrices de correlación [Menú](#análisis-exploratorio-de-datos)
+Dos varibles pueden tener una correlación líneal, pero está puede ser perfecta o apenas una correlación pequeña, pero una forma de verlo gráficamente es en la siguiente imagen dónde se aprecia una dispersión despecto a una función de recta, entre más próxima sean las tendencias a la afunción la correlación será mayor.
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB010.png)
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB011.png)
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB012.png)
+
+[Método de optención de corelación líneal](https://www.youtube.com/watch?v=A0OvIcjDUDg&ab_channel=Probabilidadyestad%C3%ADsticaIBelver)
+### Análisis de regresión simple [Menú](#análisis-exploratorio-de-datos)
+
+[¿Cuál es la matemática detrás de la regresión lineal?](https://platzi.com/blog/cual-es-la-matematica-detras-de-la-regresion-lineal/)
+
+Una regresión líneal nos permite obtener la función de la recta que determna el cambio en relación con las absisas y las ordenadas, en otras palabras, al tener las funciones de las recta podemos tenerminar independientemente de los grupos de datos que tengamos un parametro comparativo para determinar el estimulo que tiene la relación, ante un cambio en una varible, lo cual con un simple coeficiente de relación es complicado de ver.
+
+```py
+# Variables o atributos
+mi_index = (
+    processed_penguins_df
+    .columns
+    .slice_indexer(
+        'bill_length_mm',
+        'body_mass_g'
+    )
+)
+species = processed_penguins_df['species'].value_counts().reset_index()['index']
+variables = processed_penguins_df.columns[mi_index]
+
+# Definiendo el grid y el grafico
+cols = len(variables)
+rows = cols
+fig, ax = (
+    plt
+    .subplots(
+        ncols=cols,
+        nrows=rows,
+        figsize=(20, 10),
+        layout='constrained',
+        facecolor='none'
+    )
+)
+
+#Subtitulo de la figura
+fig.suptitle('Regresion_Lineales Pinguinos')
+
+# Filas
+for i, variable_row in enumerate(variables):
+
+    # Columnas
+    for j, variable_col in enumerate(variables):
+
+        # Graficando por especie en cada ax[i][j]
+        for specie, group in processed_penguins_df.groupby('species'):
+            sns.regplot(
+                y=variable_row,
+                x=variable_col,
+                data=group,
+                ax=ax[i][j],
+                label=specie,
+                color=penguin_color[specie]
+            )
+
+        # Parametros en 'comun'
+        ax[i][j].grid(True)
+        ax[i][j].set_xlabel('')
+
+        # La specie como y_label pero solo en la columna 0
+        if j != 0:
+            ax[i][j].set_ylabel('')
+        else:
+            ax[i][j].set_ylabel(f'{variable_row}')
+
+        # Solo titulos en la fila de arriba
+        if (i == 0):
+            ax[i][j].set_title(variable_col)
+
+        # Solo tick label en la fila de abajo
+        if (i != rows - 1):
+            ax[i][j].set_xticklabels([])
+        if i == j:
+            ax[i][j].legend()
+```
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB013.png)
+
+
+**Limitaciones de la regresión líneal**
+
+![AB](/A02.EDA/A02.EDA-Imagenes/AB014.png)
+
+La regresión no nos dice nada sobre la causualidad, pero existen herramientas para separar las relaciones entre múltiples varibles.
 
 
 
 
+## Análisis multivariado [Menú](#análisis-exploratorio-de-datos)
+### Regresión multiple [Menú](#análisis-exploratorio-de-datos)
+
+
+```python
+# Importamos statsmodels.formula.api para utilizar Ordinary Least Squares (OLS)
+import statsmodels.formula.api as smf  
+
+# Definimos el modelo de regresión lineal múltiple con Ordinary Least Squares (OLS)
+model_2 = (
+    smf.ols(
+        formula="body_mass_g ~ bill_length_mm + bill_depth_mm ",
+        data=processed_penguins_df
+    )
+    .fit()
+)
+
+# Mostramos el resumen del modelo
+model_2.summary()
+```
+
+**Matemáticas detrás de `smf.ols`**
+
+El método `ols` (Ordinary Least Squares, Mínimos Cuadrados Ordinarios) busca ajustar un modelo lineal de la forma:
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon
+$$
+
+Donde:
+- \( Y \) es la variable dependiente (en este caso, `body_mass_g`).
+- \( X_1 \) y \( X_2 \) son las variables predictoras (`bill_length_mm` y `bill_depth_mm`).
+- \( \beta_0 \) es la intersección (intercepto).
+- \( \beta_1, \beta_2 \) son los coeficientes de regresión que indican el impacto de cada variable predictora.
+- \( \varepsilon \) es el término de error.
+
+**Método de Mínimos Cuadrados Ordinarios (OLS)**
+
+OLS minimiza la suma de los errores cuadráticos:
+
+$$
+\min_{\beta_0, \beta_1, \beta_2} \sum_{i=1}^{n} (Y_i - \hat{Y}_i)^2
+$$
+
+Donde:
+$$
+\hat{Y}_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i}
+$$
+
+El modelo estima los valores de \( \beta_0, \beta_1, \beta_2 \) usando la siguiente ecuación matricial:
+
+$$
+\boldsymbol{\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{Y}
+$$
+
+Donde:
+- \( \mathbf{X} \) es la matriz de diseño con una columna de unos (para el intercepto) y las columnas de variables predictoras.
+- \( \mathbf{Y} \) es el vector de valores observados.
+- \( \boldsymbol{\beta} \) es el vector de coeficientes a estimar.
+
+El método `.fit()` ajusta el modelo, estimando \( \beta_0, \beta_1, \beta_2 \) y otros parámetros estadísticos.
+
+**Interpretación del output `model_2.summary()`**
+
+El comando `model_2.summary()` muestra información relevante como:
+
+- **Coeficientes estimados** (\( \beta_0, \beta_1, \beta_2 \)).
+- **Errores estándar** de los coeficientes.
+- **Valor p** para evaluar la significancia de cada variable.
+- **R² y R² ajustado** para medir la calidad del ajuste.
+- **Estadísticos de prueba** como la prueba F y t-tests.
+
+**Es importante destacar que esta función puede utilizarse con múltiples variables independientes para predecir una variable dependiente. Sin embargo, esto no garantiza que el modelo sea más preciso. Por ello, es fundamental seleccionar las variables más representativas y relacionadas con la variable dependiente.**
+
+**Por ejemplo, si queremos determinar la cantidad de dientes que tiene una persona y utilizamos como variable independiente el tono de piel, es muy probable que no exista una relación significativa, lo que haría que el modelo fuera poco preciso. En cambio, si usamos como variables independientes la edad y una variable categórica que represente el lugar donde vive, es más probable que encontremos una tasa de cambio razonable en la cantidad de dientes.**
+
+SMF es un paquete en Python utilizado para modelado estadístico, comúnmente empleado en econometría y ciencias sociales. La función `smf.logic()` no existe en la biblioteca Statsmodels (`smf` es el alias común para `statsmodels.formula.api`). Probablemente se refiere a `smf.logit()`, que se usa para la regresión logística binaria.
+
+`smf.logit()` permite modelar relaciones donde la variable dependiente es binaria (0 o 1). Se basa en la siguiente ecuación:
+
+$$
+P(Y=1) = \frac{e^{(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_n X_n)}}{1 + e^{(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_n X_n)}}
+$$
+
+Para utilizar `smf.logit()`, primero se deben importar las bibliotecas necesarias y preparar los datos:
+
+```python
+import pandas as pd
+import statsmodels.formula.api as smf
+
+# Datos de ejemplo
+data = pd.DataFrame({
+    'X1': [1, 2, 3, 4, 5, 6],
+    'X2': [2, 3, 4, 5, 6, 7],
+    'Y': [0, 0, 0, 1, 1, 1]
+})
+
+# Modelo de regresión logística
+model = smf.logit(formula='Y ~ X1 + X2', data=data).fit()
+
+# Resumen del modelo
+print(model.summary())
+```
+
+En este ejemplo:
+- `formula='Y ~ X1 + X2'` indica que la variable dependiente es `Y` y las variables independientes son `X1` y `X2`.
+- `.fit()` ajusta el modelo a los datos.
+- `model.summary()` muestra estadísticas del modelo, incluyendo coeficientes y significancia.
+
+Este método es útil para clasificación binaria, evaluación de riesgos y toma de decisiones en modelos predictivos.
+
+
+
+### 
+### 
+### 
+
+
+
+
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
+```py
+
+```
 ```py
 
 ```
